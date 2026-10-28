@@ -1,0 +1,2 @@
+composer:
+  class_maps_only: false
