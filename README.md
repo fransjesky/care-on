@@ -1,58 +1,167 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/CareOn.png" alt="CareOn logo" width="220">
 </p>
 
-## About Laravel
+<h1 align="center">CareOn</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">A web-based clinic directory and appointment scheduling platform.</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## About CareOn
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+CareOn helps patients find clinics, review services and available appointment times, and book visits before arriving. Clinics use CareOn to manage their profile, services, doctors, schedules, and appointments. A platform administrator manages clinic onboarding, shared service and specialty lists, and doctor verification.
 
-## Learning Laravel
+CareOn is a multi-clinic application. Doctor schedules are checked across clinics, appointment slots are generated from each clinic’s local schedule, and booking is revalidated to prevent a time slot from being double-booked. Patients can cancel or reschedule at least 30 minutes before an appointment starts.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Main roles
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Platform admin:** creates clinics, invites clinic administrators, manages specialties and services, and verifies doctors.
+- **Clinic admin:** manages their clinic profile and services, invites doctors, creates schedules, and manages appointments.
+- **Doctor:** accepts clinic invitations, views appointments, and manages time off.
+- **Patient:** registers and verifies their email, finds clinics, books appointments, and manages their appointments and profile.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Technology
 
-## Agentic Development
+- PHP 8.3 or newer and Laravel 13
+- MySQL (recommended for the project setup) or another Laravel-supported database
+- Blade views and Vite for frontend assets
+- Gmail SMTP for verification and invitation email in the demonstration setup
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Local setup
+
+### 1. Install prerequisites
+
+Install PHP 8.3+, Composer, Node.js with npm, and MySQL. Ensure the PHP extensions required by Laravel and the MySQL PDO driver are enabled.
+
+### 2. Clone the repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repository-url>
+cd care-on
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Replace `<repository-url>` with the Git URL for your CareOn repository.
 
-## Contributing
+### 3. Install dependencies and create your environment file
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+npm install
+```
 
-## Code of Conduct
+On Windows Command Prompt, use `copy .env.example .env` instead of `cp`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Create a MySQL database
 
-## Security Vulnerabilities
+Create an empty database named `careon` in MySQL or using a database client such as DBeaver. For example:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```sql
+CREATE DATABASE careon CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
-## License
+In `.env`, set the application and database values to match your local environment:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```dotenv
+APP_NAME=CareOn
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://127.0.0.1:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=careon
+DB_USERNAME=your_mysql_username
+DB_PASSWORD=your_mysql_password
+```
+
+Use the actual MySQL username and password configured on your computer. Keep `APP_DEBUG=true` only for local development.
+
+### 5. Configure Gmail SMTP
+
+CareOn sends account verification and invitation emails through Gmail SMTP. Create a Google **App Password** for the Gmail account that will send CareOn messages. Google requires 2-Step Verification to create an App Password. Use the App Password, not the regular Gmail password or a one-time authenticator code.
+
+Add or update these values in `.env`:
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_SCHEME=null
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-sender-address@gmail.com
+MAIL_PASSWORD=your-16-character-app-password
+MAIL_FROM_ADDRESS=your-sender-address@gmail.com
+MAIL_FROM_NAME="CareOn"
+```
+
+Use the same Gmail address for `MAIL_USERNAME` and `MAIL_FROM_ADDRESS`. Keep the App Password private and never commit `.env` to Git. The repository’s `.gitignore` should keep it out of commits.
+
+After changing `.env`, clear cached configuration:
+
+```bash
+php artisan config:clear
+```
+
+Email links use `APP_URL`. With the local URL above, recipients must open invitation and verification links on the computer running CareOn. If a different device needs to open the link, set `APP_URL` to an address reachable by that device and restart the app.
+
+### 6. Run the database migrations
+
+```bash
+php artisan migrate
+```
+
+This creates the application tables, including user accounts, clinics, doctor memberships and schedules, services, appointments, invitations, and appointment status history.
+
+### 7. Create the first platform administrator
+
+```bash
+php artisan careon:create-platform-admin admin@example.com "Platform Admin"
+```
+
+The command prompts for a password of at least 12 characters. The database seeder does not create a platform administrator, clinics, or catalog entries; create these through the command and the application UI.
+
+### 8. Build frontend assets and start CareOn
+
+```bash
+npm run build
+php artisan serve
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Sign in with the platform admin account, add specialties and services in **Settings**, and create a clinic to begin the end-to-end demonstration.
+
+For frontend development with live asset updates, run `npm run dev` in a second terminal while `php artisan serve` is running.
+
+## Demonstration flow
+
+1. Sign in as platform admin, add specialties and services, create a clinic, and invite its administrator.
+2. Accept the clinic administrator invitation from the recipient email.
+3. Sign in as clinic admin, update the clinic profile and service offerings, and invite a doctor.
+4. Accept the doctor invitation, then sign in as platform admin and verify the doctor.
+5. Sign in as clinic admin and create the doctor’s weekly schedule.
+6. Register a patient and verify the patient’s email through the emailed link.
+7. Sign in as patient, select a clinic and available slot, and confirm the booking.
+8. Review the appointment from clinic and doctor accounts; update its status from the clinic account.
+
+## Resetting the database for a clean demo
+
+> **Warning:** `migrate:fresh` permanently drops every table and deletes all data in the database configured in `.env`. Confirm `DB_DATABASE`, `DB_HOST`, and the active environment before running it.
+
+To recreate the schema from scratch:
+
+```bash
+php artisan config:clear
+php artisan migrate:fresh --seed
+php artisan careon:create-platform-admin admin@example.com "Platform Admin"
+```
+
+Then repeat the demonstration flow to create clinic, doctor, and patient accounts. `migrate:fresh --seed` does not create those accounts or sample catalog data.
+
+## Useful commands
+
+```bash
+php artisan route:list       # List application routes
+php artisan migrate:status   # See which migrations have run
+php artisan config:clear     # Reload configuration after .env changes
+npm run build                # Compile frontend assets
+```
