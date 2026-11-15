@@ -8,7 +8,7 @@
         <h1 class="auth-heading">Welcome back</h1>
         <p class="auth-intro">Sign in to continue to your CareOn account.</p>
 
-        <form method="POST" action="{{ route('login.store') }}">
+        <form id="login-form" method="POST" action="{{ route('login.store') }}">
             @csrf
             <label for="email">Email address</label>
             <input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="username" required autofocus>
@@ -24,9 +24,23 @@
 
             <div class="actions">
                 <a class="button secondary" href="{{ route('home') }}">Cancel</a>
-                <button type="submit">Sign in</button>
+                <button id="sign-in-button" type="submit" disabled>Sign in</button>
             </div>
         </form>
-        <p class="muted" style="margin-top:20px">New to CareOn? <a href="{{ route('register') }}">Create an account</a></p>
+        <div class="welcome-signin">
+            <p>New to CareOn? <a href="{{ route('register') }}">Create an account</a></p>
+        </div>
     </section>
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const signInButton = document.getElementById('sign-in-button');
+
+        function updateLoginValidity() {
+            signInButton.disabled = !loginForm.checkValidity();
+        }
+
+        loginForm.addEventListener('input', updateLoginValidity);
+        loginForm.addEventListener('change', updateLoginValidity);
+        updateLoginValidity();
+    </script>
 @endsection

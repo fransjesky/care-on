@@ -24,6 +24,11 @@
                         <a class="button secondary" href="{{ route('register') }}">Get started</a>
                     @endauth
                 </div>
+                @guest
+                    <div class="welcome-signin">
+                        <p>Already have an account? <a href="{{ route('login') }}">Sign in</a></p>
+                    </div>
+                @endguest
             </div>
 
             <div class="welcome-art" aria-label="A preview of a clinic appointment">
@@ -47,7 +52,9 @@
 
     <section class="welcome-benefits" aria-label="How CareOn helps">
         <article class="welcome-benefit">
-            <div class="welcome-benefit-mark" aria-hidden="true">⌕</div>
+            <div class="welcome-benefit-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+            </div>
             <h2>Find a clinic</h2>
             <p>Explore clinic details, services, and the doctors who can see you.</p>
         </article>

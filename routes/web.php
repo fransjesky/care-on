@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\PatientRegistrationController;
 use App\Http\Controllers\Clinic\ClinicAppointmentController;
 use App\Http\Controllers\Clinic\ClinicDoctorController;
@@ -32,6 +33,11 @@ Route::middleware('guest')->group(function (): void {
     Route::post('/register', [PatientRegistrationController::class, 'store'])
         ->middleware('throttle:5,1')
         ->name('register.store');
+    Route::get('/email/verify', [EmailVerificationController::class, 'notice'])
+        ->name('verification.notice');
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
+        ->middleware('throttle:3,1')
+        ->name('verification.send');
 
     Route::get('/clinic-admin/invitations/{token}', [ClinicAdminInvitationController::class, 'show'])
         ->name('clinic-admin-invitations.show');
@@ -40,6 +46,10 @@ Route::middleware('guest')->group(function (): void {
         ->name('clinic-admin-invitations.store');
 
 });
+
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
 
 Route::get('/clinics', [ClinicDirectoryController::class, 'index'])->name('clinics.index');
 Route::get('/clinics/{clinic}/availability', [ClinicDirectoryController::class, 'availability'])

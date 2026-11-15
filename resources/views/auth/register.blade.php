@@ -34,7 +34,9 @@
                 <button id="create-account-button" type="submit" disabled>Create account</button>
             </div>
         </form>
-        <p class="muted" style="margin-top:20px">Already have an account? <a href="{{ route('login') }}">Sign in</a></p>
+        <div class="welcome-signin">
+            <p>Already have an account? <a href="{{ route('login') }}">Sign in</a></p>
+        </div>
     </section>
     <script>
         const registrationForm = document.getElementById('registration-form');

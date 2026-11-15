@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -29,7 +28,7 @@ class PatientRegistrationController extends Controller
             'phone.regex' => 'Phone number can contain digits only.',
         ]);
 
-        $patient = DB::transaction(function () use ($validated): User {
+        $user = DB::transaction(function () use ($validated): User {
             $user = User::query()->create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
@@ -42,9 +41,9 @@ class PatientRegistrationController extends Controller
             return $user;
         });
 
-        Auth::login($patient);
-        $request->session()->regenerate();
+        $request->session()->put('verification_email', $user->email);
+        $user->sendEmailVerificationNotification();
 
-        return redirect()->route('appointments.index')->with('status', 'Your patient account is ready. Choose a clinic to book an appointment.');
+        return redirect()->route('verification.notice')->with('status', 'We sent a verification link to your email address.');
     }
 }

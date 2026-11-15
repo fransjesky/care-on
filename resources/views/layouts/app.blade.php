@@ -93,6 +93,172 @@
             overflow: hidden;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
+            margin: 8px 0 0;
+            color: #71849a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .clinic-directory {
+            width: min(100%, 980px);
+            margin: 0 auto;
+        }
+
+        .clinic-directory-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin: 2px 0 26px;
+        }
+
+        .clinic-directory-eyebrow {
+            display: inline-block;
+            margin-bottom: 9px;
+            color: #39869a;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+        }
+
+        .clinic-directory-header h1 {
+            margin-bottom: 8px;
+            font-size: clamp(30px, 4vw, 38px);
+        }
+
+        .clinic-directory-header p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .clinic-directory-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .clinic-count {
+            padding: 7px 11px;
+            border: 1px solid #dce8ed;
+            border-radius: 999px;
+            background: #fff;
+            color: #5c7488;
+            font-size: 13px;
+            font-weight: 650;
+            white-space: nowrap;
+        }
+
+        .clinic-directory-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .clinic-directory-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 22px;
+            transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+        }
+
+        .clinic-directory-card:hover {
+            border-color: #c8dfe5;
+            box-shadow: 0 12px 30px #1b3a5718;
+        }
+
+        .clinic-directory-details {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .clinic-directory-photo {
+            flex: 0 0 104px;
+            width: 104px;
+            height: 104px;
+            border: 1px solid #e4edf0;
+            border-radius: 15px;
+            background: #f1f6f8;
+            object-fit: cover;
+        }
+
+        .clinic-directory-copy {
+            min-width: 0;
+        }
+
+        .clinic-directory-copy h2 {
+            margin: 0 0 7px;
+            color: #123f5b;
+            font-size: 19px;
+        }
+
+        .clinic-directory-address {
+            overflow: hidden;
+            margin: 0 0 5px;
+            color: #61748a;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .clinic-directory-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 7px;
+            margin: 0;
+            color: #8292a4;
+            font-size: 13px;
+        }
+
+        .clinic-directory-action {
+            flex: 0 0 auto;
+            gap: 9px;
+            white-space: nowrap;
+        }
+
+        .clinic-directory-action:focus-visible {
+            outline: 3px solid #176b8740;
+            outline-offset: 3px;
+        }
+
+        .clinic-directory-action span {
+            font-size: 18px;
+            line-height: 1;
+            transition: transform .18s ease;
+        }
+
+        .clinic-directory-action:hover span {
+            transform: translateX(3px);
+        }
+
+        .clinic-directory-empty {
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .clinic-empty-mark {
+            display: grid;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 14px;
+            place-items: center;
+            border-radius: 15px;
+            background: #eaf4f6;
+            color: #39869a;
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        .clinic-directory-empty h2 {
+            margin-bottom: 5px;
+            color: #123f5b;
+        }
+
+        .clinic-directory-empty p {
+            margin: 0;
         }
 
         .clinic-description-preview {
@@ -141,12 +307,14 @@
         }
 
         .auth-main {
-            display: grid;
+            display: flex;
+            flex-direction: column;
             width: min(100% - 40px, 520px);
             min-height: 100vh;
             margin: 0 auto;
+            gap: 16px;
             padding: 28px 0;
-            place-items: center;
+            justify-content: center;
         }
 
         .auth-card {
@@ -256,8 +424,13 @@
         }
 
         .button.secondary {
-            background: #eaf2f5;
+            border: 1px solid #c9dce4;
+            background: #fff;
             color: #176b87;
+        }
+
+        .button.secondary:hover {
+            background: #f0f7f9;
         }
 
         .actions {
@@ -400,6 +573,35 @@
             gap: 12px;
         }
 
+        .welcome-signin {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            color: #71849a;
+            font-size: 14px;
+        }
+
+        .welcome-signin p {
+            margin: 0;
+        }
+
+        .welcome-signin a {
+            color: #176b87;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color .15s ease;
+        }
+
+        .welcome-signin a:hover {
+            color: #123f5b;
+        }
+
+        .welcome-signin a:focus-visible {
+            outline: 3px solid #176b8740;
+            outline-offset: 3px;
+        }
+
         .welcome-art {
             position: relative;
             display: grid;
@@ -517,6 +719,16 @@
             font-weight: 750;
         }
 
+        .welcome-benefit-mark svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2;
+        }
+
         .welcome-benefit h2 { margin-bottom: 6px; color: #123f5b; font-size: 16px; }
         .welcome-benefit p { margin: 0; font-size: 14px; }
 
@@ -535,6 +747,49 @@
 
             .card {
                 padding: 21px;
+            }
+
+            .clinic-directory-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 20px;
+            }
+
+            .clinic-directory-header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .clinic-directory-card {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 18px;
+                padding: 16px;
+            }
+
+            .clinic-directory-details {
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .clinic-directory-photo {
+                flex-basis: 76px;
+                width: 76px;
+                height: 76px;
+                border-radius: 12px;
+            }
+
+            .clinic-directory-copy h2 {
+                font-size: 17px;
+            }
+
+            .clinic-directory-address {
+                white-space: normal;
+            }
+
+            .clinic-directory-action {
+                width: 100%;
             }
 
             h1 {
