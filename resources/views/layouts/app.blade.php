@@ -46,6 +46,7 @@
                 @if (auth()->user()->role === 'patient')
                     <a href="{{ route('clinics.index') }}">Find a clinic</a>
                     <a href="{{ route('appointments.index') }}">My appointments</a>
+                    <a href="{{ route('patient.profile.edit') }}">My profile</a>
                 @else
                     <a href="{{ route('dashboard') }}">Dashboard</a>
                 @endif

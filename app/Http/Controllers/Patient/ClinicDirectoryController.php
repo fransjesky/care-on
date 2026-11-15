@@ -50,11 +50,13 @@ class ClinicDirectoryController extends Controller
         }
 
         $localDate = CarbonImmutable::parse($validated['date'], $clinic->timezone)->startOfDay();
-        $slotsByDoctor = collect($availability->availableSlots(
+        $availableSlots = $availability->availableSlots(
             $clinic,
             $localDate,
             excludedAppointmentId: $rescheduling?->id,
-        ))->groupBy(fn (array $slot): int => $slot['doctor']->id);
+        );
+        $recommendedSlot = $availableSlots[0] ?? null;
+        $slotsByDoctor = collect($availableSlots)->groupBy(fn (array $slot): int => $slot['doctor']->id);
         $clinicServices = $clinic->clinicServices()
             ->with('service')
             ->where('is_available', true)
@@ -63,6 +65,7 @@ class ClinicDirectoryController extends Controller
         return view('patient.clinics.availability', [
             'clinic' => $clinic,
             'date' => $validated['date'],
+            'recommendedSlot' => $recommendedSlot,
             'slotsByDoctor' => $slotsByDoctor,
             'clinicServices' => $clinicServices,
             'rescheduling' => $rescheduling,

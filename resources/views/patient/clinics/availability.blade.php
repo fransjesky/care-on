@@ -32,7 +32,10 @@
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
                 @foreach ($slots as $slot)
                     <div style="border:1px solid #e1e8ef;border-radius:10px;padding:14px">
-                        <strong>{{ $slot['starts_at']->setTimezone($clinic->timezone)->format('g:i A') }}–{{ $slot['ends_at']->setTimezone($clinic->timezone)->format('g:i A') }}</strong>
+                        @if ($recommendedSlot && $slot['doctor']->id === $recommendedSlot['doctor']->id && $slot['starts_at_local'] === $recommendedSlot['starts_at_local'])
+                            <span class="pill">Recommended earliest available</span>
+                        @endif
+                        <strong style="display:block;margin-top:8px">{{ $slot['starts_at']->setTimezone($clinic->timezone)->format('g:i A') }}–{{ $slot['ends_at']->setTimezone($clinic->timezone)->format('g:i A') }}</strong>
                         @auth
                             @if (auth()->user()->role === 'patient')
                                 <form method="GET" action="{{ route('appointments.confirm') }}" style="margin-top:10px">

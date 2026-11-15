@@ -93,7 +93,8 @@ class ClinicAvailabilityService
             }
         }
 
-        usort($slots, fn (array $left, array $right): int => $left['starts_at']->getTimestamp() <=> $right['starts_at']->getTimestamp());
+        usort($slots, fn (array $left, array $right): int => [$left['starts_at']->getTimestamp(), $left['doctor']->id]
+            <=> [$right['starts_at']->getTimestamp(), $right['doctor']->id]);
 
         return $slots;
     }

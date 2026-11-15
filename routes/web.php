@@ -2,14 +2,18 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PatientRegistrationController;
+use App\Http\Controllers\Clinic\ClinicAppointmentController;
 use App\Http\Controllers\Clinic\ClinicDoctorController;
+use App\Http\Controllers\Clinic\ClinicProfileController;
 use App\Http\Controllers\Clinic\ClinicServiceController;
 use App\Http\Controllers\Clinic\DoctorScheduleController;
 use App\Http\Controllers\ClinicAdminInvitationController;
+use App\Http\Controllers\Doctor\DoctorAppointmentController;
 use App\Http\Controllers\Doctor\DoctorTimeOffController;
 use App\Http\Controllers\DoctorInvitationController;
 use App\Http\Controllers\Patient\AppointmentController;
 use App\Http\Controllers\Patient\ClinicDirectoryController;
+use App\Http\Controllers\Patient\ProfileController;
 use App\Http\Controllers\Platform\CatalogController;
 use App\Http\Controllers\Platform\ClinicController;
 use Illuminate\Http\Request;
@@ -58,6 +62,7 @@ Route::middleware('auth')->group(function (): void {
             'platform_admin' => redirect()->route('platform.clinics.index'),
             'clinic_admin' => redirect()->route('clinic.dashboard'),
             'doctor' => redirect()->route('doctor.dashboard'),
+            'patient' => redirect()->route('appointments.index'),
             default => abort(403),
         };
     })->name('dashboard');
@@ -79,6 +84,11 @@ Route::middleware('auth')->group(function (): void {
     })->middleware('role:clinic_admin')->name('clinic.dashboard');
 
     Route::prefix('clinic')->name('clinic.')->middleware('role:clinic_admin')->group(function (): void {
+        Route::get('/profile', [ClinicProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ClinicProfileController::class, 'update'])->name('profile.update');
+        Route::get('/appointments', [ClinicAppointmentController::class, 'index'])->name('appointments.index');
+        Route::patch('/appointments/{appointment}/status', [ClinicAppointmentController::class, 'updateStatus'])
+            ->name('appointments.status');
         Route::get('/doctors', [ClinicDoctorController::class, 'index'])->name('doctors.index');
         Route::post('/doctor-invitations', [ClinicDoctorController::class, 'storeInvitation'])
             ->name('doctor-invitations.store');
@@ -101,6 +111,7 @@ Route::middleware('auth')->group(function (): void {
 
             return view('doctor.dashboard', compact('doctor'));
         })->name('dashboard');
+        Route::get('/appointments', [DoctorAppointmentController::class, 'index'])->name('appointments.index');
         Route::get('/time-offs', [DoctorTimeOffController::class, 'index'])->name('time-offs.index');
         Route::post('/time-offs', [DoctorTimeOffController::class, 'store'])->name('time-offs.store');
         Route::delete('/time-offs/{timeOff}', [DoctorTimeOffController::class, 'destroy'])->name('time-offs.destroy');
@@ -108,6 +119,8 @@ Route::middleware('auth')->group(function (): void {
 });
 
 Route::middleware(['auth', 'role:patient'])->group(function (): void {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('patient.profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('patient.profile.update');
     Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
     Route::get('/appointments/confirm', [AppointmentController::class, 'confirm'])->name('appointments.confirm');
     Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
