@@ -1,9 +1,12 @@
-@extends('layouts.app', ['title' => 'Log in', 'mainClass' => 'narrow'])
+@extends('layouts.app', ['title' => 'Sign in', 'mainClass' => 'auth-main'])
 
 @section('content')
-    <section class="card">
-        <h1>Welcome back</h1>
-        <p>Log in to manage your CareOn account.</p>
+    <section class="card auth-card">
+        <div class="auth-logo">
+            <img src="{{ asset('CareOn.png') }}" alt="CareOn">
+        </div>
+        <h1 class="auth-heading">Welcome back</h1>
+        <p class="auth-intro">Sign in to continue to your CareOn account.</p>
 
         <form method="POST" action="{{ route('login.store') }}">
             @csrf
@@ -19,8 +22,11 @@
                 <input name="remember" type="checkbox" value="1" style="width:auto"> Keep me signed in
             </label>
 
-            <div class="actions"><button type="submit">Log in</button></div>
+            <div class="actions">
+                <a class="button secondary" href="{{ route('home') }}">Cancel</a>
+                <button type="submit">Sign in</button>
+            </div>
         </form>
-        <p class="muted" style="margin-top:20px">New to CareOn? <a href="{{ route('register') }}">Create a patient account</a>.</p>
+        <p class="muted" style="margin-top:20px">New to CareOn? <a href="{{ route('register') }}">Create an account</a></p>
     </section>
 @endsection

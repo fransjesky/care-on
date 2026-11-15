@@ -1,26 +1,65 @@
-@extends('layouts.app', ['title' => 'Clinic appointments, made clearer'])
+@extends('layouts.app', ['title' => 'Clinic appointments, made clearer', 'mainClass' => 'welcome-main'])
 
 @section('content')
-    <section class="card" style="padding:clamp(28px,7vw,72px);background:linear-gradient(135deg,#fff 20%,#edf7f8 100%)">
-        <div style="text-align:center">
-            <img src="{{ asset('CareOn.png') }}" alt="CareOn" style="width:100%;height:auto">
+    <section class="welcome-hero">
+        <div class="welcome-logo">
+            <img src="{{ asset('CareOn.png') }}" alt="CareOn">
         </div>
-        <h1 style="font-size:clamp(34px,6vw,58px);max-width:680px;margin-top:22px">Spend less time waiting. Make your visit
-            count.</h1>
-        <p style="font-size:18px;max-width:590px;margin:16px 0 26px">CareOn helps patients find clinics and appointment
-            times, while giving clinic teams one place to manage schedules and visits.</p>
-        <div class="actions">
-            @auth
-                @if (auth()->user()->role === 'patient')
-                    <a class="button" href="{{ route('clinics.index') }}">Find a clinic</a>
-                    <a class="button secondary" href="{{ route('appointments.index') }}">My appointments</a>
-                @else
-                    <a class="button" href="{{ route('dashboard') }}">Open dashboard</a>
-                @endif
-            @else
-                <a class="button" href="{{ route('clinics.index') }}">Find a clinic</a>
-                <a class="button secondary" href="{{ route('register') }}">Get started</a>
-            @endauth
+
+        <div class="welcome-grid">
+            <div class="welcome-copy">
+                <span class="welcome-eyebrow">A little more ease in your care</span>
+                <h1 class="welcome-title">Finding the right time for care should feel simple.</h1>
+                <p>Explore clinics, compare appointment times, and keep your visits together in one welcoming place.</p>
+                <div class="welcome-actions">
+                    @auth
+                        @if (auth()->user()->role === 'patient')
+                            <a class="button" href="{{ route('clinics.index') }}">Find a clinic</a>
+                            <a class="button secondary" href="{{ route('appointments.index') }}">My appointments</a>
+                        @else
+                            <a class="button" href="{{ route('dashboard') }}">Open dashboard</a>
+                        @endif
+                    @else
+                        <a class="button" href="{{ route('clinics.index') }}">Browse clinics</a>
+                        <a class="button secondary" href="{{ route('register') }}">Get started</a>
+                    @endauth
+                </div>
+            </div>
+
+            <div class="welcome-art" aria-label="A preview of a clinic appointment">
+                <div class="appointment-preview">
+                    <div class="preview-heading">
+                        <div class="preview-mark" aria-hidden="true">+</div>
+                        <div>
+                            <strong>Your next visit</strong>
+                            <span>A little time for you</span>
+                        </div>
+                    </div>
+                    <div class="preview-date">
+                        <span>Appointment time</span>
+                        <strong>When it works for you</strong>
+                    </div>
+                    <p class="preview-note">Browse available times and choose the one that fits your day.</p>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section class="welcome-benefits" aria-label="How CareOn helps">
+        <article class="welcome-benefit">
+            <div class="welcome-benefit-mark" aria-hidden="true">⌕</div>
+            <h2>Find a clinic</h2>
+            <p>Explore clinic details, services, and the doctors who can see you.</p>
+        </article>
+        <article class="welcome-benefit">
+            <div class="welcome-benefit-mark" aria-hidden="true">◷</div>
+            <h2>Choose your time</h2>
+            <p>See available appointment times and select what works for your schedule.</p>
+        </article>
+        <article class="welcome-benefit">
+            <div class="welcome-benefit-mark" aria-hidden="true">✓</div>
+            <h2>Keep visits together</h2>
+            <p>Review your upcoming appointments and manage your visits in one place.</p>
+        </article>
     </section>
 @endsection

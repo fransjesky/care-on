@@ -1,12 +1,14 @@
-@extends('layouts.app', ['title' => 'Create patient account', 'mainClass' => 'narrow'])
+@extends('layouts.app', ['title' => 'Create account', 'mainClass' => 'auth-main'])
 
 @section('content')
-    <section class="card">
-        <span class="pill">Patient registration</span>
-        <h1 style="margin-top:14px">Create your CareOn account</h1>
-        <p>Register once to book and keep track of clinic appointments.</p>
+    <section class="card auth-card">
+        <div class="auth-logo">
+            <img src="{{ asset('CareOn.png') }}" alt="CareOn">
+        </div>
+        <h1 class="auth-heading">Create your account</h1>
+        <p class="auth-intro">Set up your CareOn account to continue.</p>
 
-        <form id="patient-registration-form" method="POST" action="{{ route('register.store') }}">
+        <form id="registration-form" method="POST" action="{{ route('register.store') }}">
             @csrf
             <label for="name">Full name</label>
             <input id="name" name="name" type="text" value="{{ old('name') }}" autocomplete="name" required autofocus>
@@ -32,10 +34,10 @@
                 <button id="create-account-button" type="submit" disabled>Create account</button>
             </div>
         </form>
-        <p class="muted" style="margin-top:20px">Already registered? <a href="{{ route('login') }}">Log in</a>.</p>
+        <p class="muted" style="margin-top:20px">Already have an account? <a href="{{ route('login') }}">Sign in</a></p>
     </section>
     <script>
-        const registrationForm = document.getElementById('patient-registration-form');
+        const registrationForm = document.getElementById('registration-form');
         const phoneInput = document.getElementById('phone');
         const passwordInput = document.getElementById('password');
         const passwordConfirmationInput = document.getElementById('password_confirmation');
