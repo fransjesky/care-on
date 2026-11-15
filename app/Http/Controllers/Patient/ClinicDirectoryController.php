@@ -8,19 +8,38 @@ use App\Models\Clinic;
 use App\Services\AppointmentBookingService;
 use App\Services\ClinicAvailabilityService;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ClinicDirectoryController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:100'],
+        ]);
+        $search = trim($validated['search'] ?? '');
+
         $clinics = Clinic::query()
             ->where('status', 'active')
+            ->when($search !== '', function (Builder $query) use ($search): void {
+                $query->where(function (Builder $query) use ($search): void {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('address', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%")
+                        ->orWhereHas('clinicServices', function (Builder $clinicServices) use ($search): void {
+                            $clinicServices->where('is_available', true)
+                                ->whereHas('service', function (Builder $services) use ($search): void {
+                                    $services->where('name', 'like', "%{$search}%");
+                                });
+                        });
+                });
+            })
             ->orderBy('name')
             ->get();
 
-        return view('patient.clinics.index', compact('clinics'));
+        return view('patient.clinics.index', compact('clinics', 'search'));
     }
 
     public function availability(

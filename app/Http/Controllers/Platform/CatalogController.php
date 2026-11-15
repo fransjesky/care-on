@@ -30,7 +30,7 @@ class CatalogController extends Controller
 
         Specialty::query()->create($validated);
 
-        return redirect()->route('platform.catalog.index')->with('status', 'Specialty added.');
+        return redirect()->route('platform.settings.index')->with('status', 'Specialty added.');
     }
 
     public function storeService(Request $request): RedirectResponse
@@ -43,13 +43,13 @@ class CatalogController extends Controller
 
         Service::query()->create($validated);
 
-        return redirect()->route('platform.catalog.index')->with('status', 'Service added.');
+        return redirect()->route('platform.settings.index')->with('status', 'Service added.');
     }
 
     public function verifyDoctor(Doctor $doctor): RedirectResponse
     {
         $doctor->update(['is_verified' => true]);
 
-        return redirect()->route('platform.catalog.index')->with('status', 'Doctor verified.');
+        return redirect()->route('platform.settings.index')->with('status', 'Doctor verified.');
     }
 }

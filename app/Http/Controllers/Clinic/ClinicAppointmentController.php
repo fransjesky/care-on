@@ -14,6 +14,8 @@ class ClinicAppointmentController extends Controller
 {
     public function index(Request $request): View
     {
+        $clinic = $request->user()->clinic;
+
         $validated = $request->validate([
             'status' => ['nullable', Rule::in(['scheduled', 'confirmed', 'completed', 'cancelled'])],
         ]);
@@ -27,7 +29,7 @@ class ClinicAppointmentController extends Controller
             ->paginate(25)
             ->withQueryString();
 
-        return view('clinic.appointments.index', compact('appointments', 'validated'));
+        return view('clinic.appointments.index', compact('appointments', 'validated', 'clinic'));
     }
 
     public function updateStatus(

@@ -15,7 +15,7 @@
                     @auth
                         @if (auth()->user()->role === 'patient')
                             <a class="button" href="{{ route('clinics.index') }}">Find a clinic</a>
-                            <a class="button secondary" href="{{ route('appointments.index') }}">My appointments</a>
+                            <a class="button secondary" href="{{ route('appointments.index') }}">Appointments</a>
                         @else
                             <a class="button" href="{{ route('dashboard') }}">Open dashboard</a>
                         @endif
@@ -53,7 +53,10 @@
     <section class="welcome-benefits" aria-label="How CareOn helps">
         <article class="welcome-benefit">
             <div class="welcome-benefit-mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+                <svg viewBox="0 0 24 24">
+                    <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                    <path d="m16 16 4.5 4.5"></path>
+                </svg>
             </div>
             <h2>Find a clinic</h2>
             <p>Explore clinic details, services, and the doctors who can see you.</p>

@@ -36,8 +36,8 @@ class ClinicController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'alpha_dash', 'max:255', Rule::unique('clinics', 'slug')],
-            'address' => ['nullable', 'string', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:30'],
+            'address' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'regex:/^[0-9]+$/', 'max:30'],
             'timezone' => ['required', Rule::in(timezone_identifiers_list())],
             'admin_email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
         ]);
@@ -45,8 +45,8 @@ class ClinicController extends Controller
         $clinic = DB::transaction(fn (): Clinic => Clinic::query()->create([
             'name' => $validated['name'],
             'slug' => Str::lower($validated['slug']),
-            'address' => $validated['address'] ?? null,
-            'phone' => $validated['phone'] ?? null,
+            'address' => $validated['address'],
+            'phone' => $validated['phone'],
             'timezone' => $validated['timezone'],
             'status' => 'active',
         ]));

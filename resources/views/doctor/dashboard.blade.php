@@ -17,7 +17,7 @@
             <p>You have not joined any clinics yet.</p>
         @endforelse
         <div class="actions">
-            <a class="button" href="{{ route('doctor.appointments.index') }}">My appointments</a>
+            <a class="button" href="{{ route('doctor.appointments.index') }}">Appointments</a>
             <a class="button secondary" href="{{ route('doctor.time-offs.index') }}">Manage time off</a>
         </div>
     </section>

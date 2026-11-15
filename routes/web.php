@@ -78,9 +78,9 @@ Route::middleware('auth')->group(function (): void {
     })->name('dashboard');
 
     Route::prefix('platform')->name('platform.')->middleware('role:platform_admin')->group(function (): void {
-        Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
-        Route::post('/catalog/specialties', [CatalogController::class, 'storeSpecialty'])->name('catalog.specialties.store');
-        Route::post('/catalog/services', [CatalogController::class, 'storeService'])->name('catalog.services.store');
+        Route::get('/settings', [CatalogController::class, 'index'])->name('settings.index');
+        Route::post('/settings/specialties', [CatalogController::class, 'storeSpecialty'])->name('settings.specialties.store');
+        Route::post('/settings/services', [CatalogController::class, 'storeService'])->name('settings.services.store');
         Route::post('/doctors/{doctor}/verify', [CatalogController::class, 'verifyDoctor'])->name('doctors.verify');
         Route::get('/clinics', [ClinicController::class, 'index'])->name('clinics.index');
         Route::get('/clinics/create', [ClinicController::class, 'create'])->name('clinics.create');

@@ -5,7 +5,7 @@
     <div style="display:flex;align-items:end;justify-content:space-between;gap:18px;flex-wrap:wrap">
         <div>
             <span class="pill">Doctor</span>
-            <h1 style="margin-top:12px">My appointments</h1>
+            <h1 style="margin-top:12px">Appointments</h1>
             <p>View appointments scheduled with you across your clinics.</p>
         </div>
         <form method="GET" action="{{ route('doctor.appointments.index') }}" style="display:flex;gap:10px;align-items:end;flex-wrap:wrap">

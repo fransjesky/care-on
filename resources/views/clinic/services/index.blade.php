@@ -1,27 +1,65 @@
 @extends('layouts.app', ['title' => 'Clinic services'])
 
 @section('content')
-    <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Clinic dashboard</a>
-    <section class="card">
-        <h1>Services offered</h1>
-        <p>Select the services patients can book at your clinic. The platform administrator maintains the shared service catalog.</p>
+    <div class="clinic-workspace-page">
+        <a class="button secondary clinic-workspace-cancel-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Cancel</a>
+        <header class="clinic-directory-header patient-profile-header clinic-workspace-header">
+            <div>
+                <span class="clinic-directory-eyebrow">Clinic administration</span>
+                <h1>Clinic services</h1>
+                <p>Choose which services patients can book at your clinic.</p>
+            </div>
+        </header>
 
-        @if ($services->isEmpty())
-            <p>No services are available yet. Ask the platform administrator to add services to CareOn.</p>
-        @else
-            <form method="POST" action="{{ route('clinic.services.update') }}">
-                @csrf
-                @method('PUT')
-                <div class="stack" style="margin-top:22px">
-                    @foreach ($services as $service)
-                        <label style="display:flex;align-items:flex-start;gap:12px;margin:0;padding:14px;border:1px solid #e1e8ef;border-radius:10px;font-weight:500">
-                            <input type="checkbox" name="service_ids[]" value="{{ $service->id }}" @checked(in_array($service->id, $selectedServiceIds)) style="width:auto;margin-top:3px">
-                            <span><strong>{{ $service->name }}</strong><span class="muted" style="display:block">{{ $service->specialty?->name ?? 'General service' }} · {{ $service->description }}</span></span>
-                        </label>
-                    @endforeach
+        <section class="card clinic-workspace-card">
+            <header class="clinic-workspace-section-heading">
+                <div>
+                    <h2>Services offered</h2>
+                    <p>The platform administrator maintains the shared service list. Select every service currently available at your clinic.</p>
                 </div>
-                <div class="actions"><button type="submit">Save services</button></div>
-            </form>
-        @endif
-    </section>
+                @if ($services->isNotEmpty())
+                    <span class="clinic-workspace-count">{{ count($selectedServiceIds) }} selected</span>
+                @endif
+            </header>
+
+            @if ($services->isEmpty())
+                <div class="clinic-workspace-empty">
+                    <span aria-hidden="true">＋</span>
+                    <h3>No services available yet</h3>
+                    <p>Ask the platform administrator to add services to CareOn. They will appear here when available.</p>
+                </div>
+            @else
+                <form method="POST" action="{{ route('clinic.services.update') }}">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="clinic-service-grid">
+                        @foreach ($services as $service)
+                            <label class="clinic-service-option">
+                                <input type="checkbox" name="service_ids[]" value="{{ $service->id }}" @checked(in_array($service->id, $selectedServiceIds))>
+                                <span class="clinic-service-option-content">
+                                    <strong>{{ $service->name }}</strong>
+                                    <span class="clinic-service-specialty">{{ $service->specialty?->name ?? 'General service' }}</span>
+                                    @if ($service->description)
+                                        <span class="clinic-service-description">{{ $service->description }}</span>
+                                    @endif
+                                </span>
+                                <span class="clinic-service-check" aria-hidden="true">✓</span>
+                            </label>
+                        @endforeach
+                    </div>
+
+                    @error('service_ids') <p class="error">{{ $message }}</p> @enderror
+                    @error('service_ids.*') <p class="error">{{ $message }}</p> @enderror
+
+                    <footer class="clinic-workspace-form-actions">
+                        <p>Changes affect the services patients can see and book.</p>
+                        <div class="clinic-workspace-action-buttons">
+                            <button type="submit">Save services</button>
+                        </div>
+                    </footer>
+                </form>
+            @endif
+        </section>
+    </div>
 @endsection

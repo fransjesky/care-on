@@ -13,14 +13,25 @@
                 <p>Browse clinic details, services, and doctors’ available appointment times.</p>
             </div>
             <div class="clinic-directory-header-actions">
-                <span class="clinic-count">{{ $clinics->count() }} {{ $clinics->count() === 1 ? 'clinic' : 'clinics' }}</span>
-                @auth
-                    @if (auth()->user()->role === 'patient')
-                        <a class="button secondary" href="{{ route('appointments.index') }}">My appointments</a>
-                    @endif
-                @endauth
+                <form class="clinic-search-form" method="GET" action="{{ route('clinics.index') }}" role="search">
+                    <label class="visually-hidden" for="clinic-search">Search clinics</label>
+                    <svg class="clinic-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                        <path d="m16 16 4.5 4.5"></path>
+                    </svg>
+                    <input id="clinic-search" name="search" type="search" value="{{ $search }}"
+                        placeholder="Clinic, location, or service" autocomplete="off" maxlength="100">
+                    <button type="submit">Search</button>
+                </form>
             </div>
         </header>
+
+        @if ($search !== '')
+            <div class="clinic-search-summary" aria-live="polite">
+                <span>Results for <strong>“{{ $search }}”</strong></span>
+                <a href="{{ route('clinics.index') }}">Clear search</a>
+            </div>
+        @endif
 
         <div class="clinic-directory-list">
             @forelse ($clinics as $clinic)
@@ -48,9 +59,21 @@
                 </section>
             @empty
                 <section class="card clinic-directory-empty">
-                    <div class="clinic-empty-mark" aria-hidden="true">+</div>
-                    <h2>No clinics to show yet</h2>
-                    <p>There aren’t any active clinics in the directory right now. Please check back later.</p>
+                    <div class="clinic-empty-mark" aria-hidden="true">
+                        @if ($search !== '')
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                                <path d="m16 16 4.5 4.5"></path>
+                            </svg>
+                        @else
+                            +
+                        @endif
+                    </div>
+                    <h2>{{ $search !== '' ? 'No clinics found' : 'No clinics to show yet' }}</h2>
+                    <p>{{ $search !== '' ? 'Try another clinic name, location, or service.' : 'There aren’t any active clinics in the directory right now. Please check back later.' }}</p>
+                    @if ($search !== '')
+                        <a class="button secondary" href="{{ route('clinics.index') }}" style="margin-top:18px">Clear search</a>
+                    @endif
                 </section>
             @endforelse
         </div>
