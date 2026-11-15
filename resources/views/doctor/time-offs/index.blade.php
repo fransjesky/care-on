@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Time off'])
 
 @section('content')
-    <p><a href="{{ route('doctor.dashboard') }}">← Doctor dashboard</a></p>
+    <a class="back-link" href="{{ route('doctor.dashboard') }}"><span aria-hidden="true">←</span> Doctor dashboard</a>
     <section class="card">
         <h1>Time off</h1>
         <p>Block time when you cannot see patients. Choose a clinic for clinic-specific time off, or choose all clinics. Times are entered in the selected time zone and stored consistently for CareOn.</p>

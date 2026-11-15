@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[Fillable(['name', 'slug', 'address', 'phone', 'timezone', 'status'])]
+#[Fillable(['name', 'slug', 'address', 'phone', 'photo_url', 'description', 'timezone', 'status'])]
 #[Hidden(['deleted_at'])]
 class Clinic extends Model
 {

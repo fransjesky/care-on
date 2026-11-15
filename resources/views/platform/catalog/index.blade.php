@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Platform catalog'])
 
 @section('content')
-    <p><a href="{{ route('platform.clinics.index') }}">← Clinics</a></p>
+    <a class="back-link" href="{{ route('platform.clinics.index') }}"><span aria-hidden="true">←</span> Clinics</a>
     <h1>Platform catalog</h1>
     <p>Manage the shared doctor specialties and services, then review doctor profiles before patients can see them.</p>
 

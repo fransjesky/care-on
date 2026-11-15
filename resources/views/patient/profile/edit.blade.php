@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'My profile'])
 
 @section('content')
-    <p><a href="{{ route('appointments.index') }}">← My appointments</a></p>
+    <a class="back-link" href="{{ route('appointments.index') }}"><span aria-hidden="true">←</span> My appointments</a>
     <section class="card">
         <h1>My profile</h1>
         <p>Update the contact and personal information on your patient account.</p>

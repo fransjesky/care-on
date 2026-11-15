@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Doctor schedules'])
 
 @section('content')
-    <p><a href="{{ route('clinic.dashboard') }}">← Clinic dashboard</a></p>
+    <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Clinic dashboard</a>
     <h1>Doctor schedules</h1>
     <p>Set recurring weekly availability in this clinic’s time zone. CareOn checks the doctor’s schedules at every clinic before saving.</p>
 

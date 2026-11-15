@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Clinic doctors'])
 
 @section('content')
-    <p><a href="{{ route('clinic.dashboard') }}">← {{ $clinic->name }} dashboard</a></p>
+    <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> {{ $clinic->name }} dashboard</a>
     <section class="card">
         <h1>Doctors</h1>
         <p>Invite a doctor by email. Existing CareOn doctors can join this clinic without creating another account.</p>

@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Clinic appointments'])
 
 @section('content')
-    <p><a href="{{ route('clinic.dashboard') }}">← Clinic dashboard</a></p>
+    <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Clinic dashboard</a>
     <div style="display:flex;align-items:end;justify-content:space-between;gap:18px;flex-wrap:wrap">
         <div>
             <span class="pill">Clinic administrator</span>

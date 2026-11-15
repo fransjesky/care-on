@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Clinic services'])
 
 @section('content')
-    <p><a href="{{ route('clinic.dashboard') }}">← Clinic dashboard</a></p>
+    <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Clinic dashboard</a>
     <section class="card">
         <h1>Services offered</h1>
         <p>Select the services patients can book at your clinic. The platform administrator maintains the shared service catalog.</p>

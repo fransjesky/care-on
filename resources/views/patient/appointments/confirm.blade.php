@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => $rescheduling ? 'Confirm new appointment time' : 'Confirm appointment'])
 
 @section('content')
-    <p><a href="{{ route('clinics.availability', ['clinic' => $clinic, 'date' => $slot['starts_at_local'] ? substr($slot['starts_at_local'], 0, 10) : now($clinic->timezone)->toDateString(), 'reschedule' => $rescheduling?->id]) }}">← Choose another time</a></p>
+    <a class="back-link" href="{{ route('clinics.availability', ['clinic' => $clinic, 'date' => $slot['starts_at_local'] ? substr($slot['starts_at_local'], 0, 10) : now($clinic->timezone)->toDateString(), 'reschedule' => $rescheduling?->id]) }}"><span aria-hidden="true">←</span> Choose another time</a>
     <section class="card">
         <span class="pill">Final confirmation</span>
         <h1 style="margin-top:12px">{{ $rescheduling ? 'Confirm your new time' : 'Confirm this appointment?' }}</h1>

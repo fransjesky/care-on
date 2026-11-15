@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Clinic profile'])
 
 @section('content')
-    <p><a href="{{ route('clinic.dashboard') }}">← Clinic dashboard</a></p>
+    <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Clinic dashboard</a>
     <section class="card">
         <span class="pill">Clinic administrator</span>
         <h1 style="margin-top:12px">Clinic profile</h1>
@@ -22,6 +22,16 @@
             <label for="phone">Phone</label>
             <input id="phone" name="phone" type="tel" value="{{ old('phone', $clinic->phone) }}" autocomplete="tel" maxlength="30">
             @error('phone') <p class="error">{{ $message }}</p> @enderror
+
+            <label for="photo_url">Clinic photo URL</label>
+            <input id="photo_url" name="photo_url" type="url" value="{{ old('photo_url', $clinic->photo_url) }}" maxlength="2048" placeholder="https://example.com/clinic-photo.jpg">
+            <p class="muted">Paste a direct HTTPS or HTTP link to an image hosted online. CareOn does not upload or store the image.</p>
+            @error('photo_url') <p class="error">{{ $message }}</p> @enderror
+
+            <label for="description">About the clinic</label>
+            <textarea id="description" name="description" rows="6" maxlength="5000">{{ old('description', $clinic->description) }}</textarea>
+            <p class="muted">Describe the clinic for patients (up to 5,000 characters).</p>
+            @error('description') <p class="error">{{ $message }}</p> @enderror
 
             <label for="timezone">Time zone</label>
             <input id="timezone" value="{{ $clinic->timezone }}" disabled>

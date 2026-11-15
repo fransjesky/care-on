@@ -23,8 +23,10 @@ class PatientRegistrationController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
-            'phone' => ['nullable', 'string', 'max:30'],
+            'phone' => ['nullable', 'string', 'max:30', 'regex:/^[0-9]+$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'phone.regex' => 'Phone number can contain digits only.',
         ]);
 
         $patient = DB::transaction(function () use ($validated): User {

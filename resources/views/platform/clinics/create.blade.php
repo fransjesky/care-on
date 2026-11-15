@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => 'Create a clinic'])
 
 @section('content')
-    <p><a href="{{ route('platform.clinics.index') }}">← Clinics</a></p>
+    <a class="back-link" href="{{ route('platform.clinics.index') }}"><span aria-hidden="true">←</span> Clinics</a>
     <section class="card">
         <h1>Create a clinic</h1>
         <p>CareOn will invite the clinic administrator to set up their own account.</p>
