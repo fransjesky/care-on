@@ -35,7 +35,7 @@
                         <article style="border:1px solid #e1e8ef;border-radius:10px;padding:14px">
                             <h3 style="margin:0 0 6px;font-size:16px">{{ $clinicService->service->name }}</h3>
                             @if ($clinicService->service->description)
-                                <p style="margin:0">{{ $clinicService->service->description }}</p>
+                                <p class="clinic-availability-service-description">{{ $clinicService->service->description }}</p>
                             @endif
                             @if ($clinicService->note)
                                 <p class="muted" style="margin:6px 0 0">{{ $clinicService->note }}</p>
@@ -76,13 +76,6 @@
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
                 @foreach ($slots as $slot)
                     <div style="border:1px solid #e1e8ef;border-radius:10px;padding:14px">
-                        @if (
-                            $recommendedSlot &&
-                                $slot['doctor']->id === $recommendedSlot['doctor']->id &&
-                                $slot['starts_at_local'] === $recommendedSlot['starts_at_local']
-                        )
-                            <span class="pill">Recommended earliest available</span>
-                        @endif
                         <strong
                             style="display:block;margin-top:8px">{{ $slot['starts_at']->setTimezone($clinic->timezone)->format('g:i A') }}–{{ $slot['ends_at']->setTimezone($clinic->timezone)->format('g:i A') }}</strong>
                         @auth
@@ -122,17 +115,17 @@
             <section class="card">
                 <p>No appointment times are available for this date. Try another date.</p>
             </section>
-    @endforelse
-    @if ($clinic->description)
-        <script>
-            document.querySelector('.clinic-description-toggle')?.addEventListener('click', function () {
-                const description = document.getElementById(this.getAttribute('aria-controls'));
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        @endforelse
+        @if ($clinic->description)
+            <script>
+                document.querySelector('.clinic-description-toggle')?.addEventListener('click', function() {
+                    const description = document.getElementById(this.getAttribute('aria-controls'));
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
 
-                description.classList.toggle('is-expanded', !isExpanded);
-                this.setAttribute('aria-expanded', String(!isExpanded));
-                this.textContent = isExpanded ? 'Read more' : 'Show less';
-            });
-        </script>
-    @endif
+                    description.classList.toggle('is-expanded', !isExpanded);
+                    this.setAttribute('aria-expanded', String(!isExpanded));
+                    this.textContent = isExpanded ? 'Read more' : 'Show less';
+                });
+            </script>
+        @endif
     @endsection

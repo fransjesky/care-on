@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="patient-profile-page">
+        <a class="back-link" href="{{ route('dashboard') }}"><span aria-hidden="true">←</span> Back to dashboard</a>
         <header class="clinic-directory-header patient-profile-header">
             <div>
                 <span class="clinic-directory-eyebrow">Your account</span>
@@ -65,7 +66,6 @@
                 </div>
 
                 <div class="patient-profile-actions">
-                    <a class="button secondary" href="{{ route('appointments.index') }}">Cancel</a>
                     <button type="submit">Save changes</button>
                 </div>
             </form>

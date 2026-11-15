@@ -2,9 +2,13 @@
 
 @section('content')
     <div class="clinic-directory">
-        @guest
+        @auth
+            @if (auth()->user()->role === 'patient')
+                <a class="back-link" href="{{ route('dashboard') }}"><span aria-hidden="true">←</span> Back to dashboard</a>
+            @endif
+        @else
             <a class="back-link" href="{{ route('home') }}"><span aria-hidden="true">←</span> Back to home</a>
-        @endguest
+        @endauth
 
         <header class="clinic-directory-header">
             <div>

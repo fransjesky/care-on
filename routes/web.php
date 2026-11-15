@@ -118,8 +118,9 @@ Route::middleware('auth')->group(function (): void {
             $doctor = $request->user()->doctorProfile;
             abort_if($doctor === null, 403);
             $doctor->load(['user', 'specialty', 'clinicMemberships.clinic']);
+            $clinicMemberships = $doctor->clinicMemberships->where('status', 'active');
 
-            return view('doctor.dashboard', compact('doctor'));
+            return view('doctor.dashboard', compact('doctor', 'clinicMemberships'));
         })->name('dashboard');
         Route::get('/appointments', [DoctorAppointmentController::class, 'index'])->name('appointments.index');
         Route::get('/time-offs', [DoctorTimeOffController::class, 'index'])->name('time-offs.index');

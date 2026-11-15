@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="clinic-appointments-page">
-        <a class="button secondary clinic-appointments-cancel-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Cancel</a>
+        <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Back to dashboard</a>
         <header class="clinic-directory-header patient-profile-header clinic-appointments-header">
             <div>
                 <span class="clinic-directory-eyebrow">Clinic administration</span>
@@ -55,13 +55,15 @@
                         <div class="clinic-appointment-details">
                             <div class="clinic-appointment-heading-row">
                                 <div>
-                                    <p class="clinic-appointment-time">{{ $clinicStart->format('g:i A') }}–{{ $clinicEnd->format('g:i A') }}</p>
+                                    <p class="clinic-appointment-time-row">
+                                        <span class="clinic-appointment-time">{{ $clinicStart->format('g:i A') }}–{{ $clinicEnd->format('g:i A') }}</span>
+                                        @unless (in_array($appointment->status, ['cancelled', 'completed'], true))
+                                            <span class="clinic-appointment-live-status" data-time-status aria-live="polite">Upcoming</span>
+                                        @endunless
+                                    </p>
                                     <h2>{{ $appointment->patient->name }}</h2>
                                 </div>
-                                <div class="clinic-appointment-badges">
-                                    <span class="pill clinic-appointment-status">{{ ucfirst($appointment->status) }}</span>
-                                    <span class="clinic-appointment-live-status" data-time-status aria-live="polite">{{ ucfirst($appointment->status) }}</span>
-                                </div>
+                                <span class="pill clinic-appointment-status appointment-status-pill appointment-status-{{ $appointment->status }}">{{ ucfirst($appointment->status) }}</span>
                             </div>
 
                             <div class="clinic-appointment-meta">
@@ -172,22 +174,24 @@
 
                 appointments.forEach((appointment) => {
                     const status = appointment.dataset.status;
-                    let label = status.charAt(0).toUpperCase() + status.slice(1);
+                    const timeStatus = appointment.querySelector('[data-time-status]');
 
-                    if (status !== 'cancelled' && status !== 'completed') {
-                        if (now < Number(appointment.dataset.start)) {
-                            label = 'Upcoming';
-                            appointment.querySelector('[data-time-status]').dataset.liveState = 'upcoming';
-                        } else if (now < Number(appointment.dataset.end)) {
-                            label = 'In progress';
-                            appointment.querySelector('[data-time-status]').dataset.liveState = 'current';
-                        } else {
-                            label = 'Past time';
-                            appointment.querySelector('[data-time-status]').dataset.liveState = 'past';
-                        }
+                    if (!timeStatus) {
+                        return;
                     }
 
-                    const timeStatus = appointment.querySelector('[data-time-status]');
+                    let label;
+
+                    if (now < Number(appointment.dataset.start)) {
+                        label = 'Upcoming';
+                        timeStatus.dataset.liveState = 'upcoming';
+                    } else if (now < Number(appointment.dataset.end)) {
+                        label = 'In progress';
+                        timeStatus.dataset.liveState = 'current';
+                    } else {
+                        label = 'Past time';
+                        timeStatus.dataset.liveState = 'past';
+                    }
 
                     if (timeStatus.textContent !== label) {
                         timeStatus.textContent = label;

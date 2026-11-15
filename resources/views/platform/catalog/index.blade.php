@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="platform-catalog-page">
+        <a class="back-link" href="{{ route('platform.clinics.index') }}"><span aria-hidden="true">←</span> Back to dashboard</a>
         <header class="clinic-directory-header platform-catalog-header">
             <div>
                 <span class="clinic-directory-eyebrow">Platform administration</span>
                 <h1>Platform settings</h1>
                 <p>Review doctor profiles and manage the specialties and services available across CareOn.</p>
             </div>
-            <a class="button secondary" href="{{ route('platform.clinics.index') }}">Cancel</a>
         </header>
 
         <section class="platform-doctor-verification" aria-labelledby="doctor-verification-heading">

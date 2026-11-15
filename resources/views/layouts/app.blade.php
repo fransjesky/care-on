@@ -397,12 +397,71 @@
             gap: 14px;
         }
 
+        .doctor-appointments-filter-card {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 28px;
+            padding: 19px 22px;
+        }
+
+        .doctor-appointments-filter-card h2 {
+            margin: 0 0 4px;
+            color: #123f5b;
+            font-size: 18px;
+        }
+
+        .doctor-appointments-filter-card p {
+            margin: 0;
+            color: #71849a;
+            font-size: 13px;
+        }
+
+        .doctor-appointments-filter-form {
+            display: flex;
+            align-items: flex-end;
+            gap: 9px;
+        }
+
+        .doctor-appointments-filter-form label {
+            margin: 0 0 6px;
+            font-size: 12px;
+        }
+
+        .doctor-appointments-filter-form select {
+            min-width: 160px;
+            height: 41px;
+        }
+
+        .doctor-appointments-filter-form button {
+            height: 41px;
+            white-space: nowrap;
+        }
+
+        .doctor-appointments-filter-form > a {
+            padding: 0 4px 11px;
+            color: #39869a;
+            font-size: 13px;
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .doctor-appointments-filter-form > a:hover {
+            color: #123f5b;
+        }
+
         .patient-appointment-card {
             display: grid;
             grid-template-columns: 76px minmax(0, 1fr);
             align-items: start;
             gap: 20px;
             padding: 22px;
+        }
+
+        .doctor-appointment-card.appointment-status-card-completed,
+        .doctor-appointment-card.appointment-status-card-cancelled {
+            background: #f4f6f8;
         }
 
         .patient-appointment-date {
@@ -501,6 +560,232 @@
 
         .patient-appointment-specialty {
             color: #71849a;
+        }
+
+        .doctor-appointment-details strong {
+            overflow-wrap: anywhere;
+        }
+
+        .doctor-appointment-note {
+            display: grid;
+            gap: 4px;
+            margin: 14px 0 0;
+            padding: 11px 13px;
+            border-radius: 9px;
+            background: #f7f9fa;
+            color: #526b80;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .doctor-appointment-note strong {
+            color: #8292a4;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .doctor-appointment-cancel-note {
+            background: #fff7f5;
+        }
+
+        .doctor-appointments-pagination {
+            margin-top: 20px;
+        }
+
+        .doctor-appointments-empty {
+            padding: 36px 24px;
+        }
+
+        .doctor-time-off-form-card {
+            padding: clamp(22px, 4vw, 32px);
+        }
+
+        .doctor-time-off-section-heading {
+            margin-bottom: 14px;
+        }
+
+        .doctor-time-off-section-heading h2 {
+            margin: 0 0 5px;
+            color: #123f5b;
+            font-size: 20px;
+        }
+
+        .doctor-time-off-section-heading p {
+            max-width: 680px;
+            margin: 0;
+            color: #71849a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .doctor-time-off-fields {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 20px;
+        }
+
+        .doctor-time-off-fields > div {
+            min-width: 0;
+        }
+
+        .doctor-time-off-fields label {
+            margin: 14px 0 6px;
+        }
+
+        .doctor-time-off-help {
+            margin: 6px 0 0;
+            color: #8292a4;
+            font-size: 12px;
+        }
+
+        .doctor-time-off-reason-field {
+            grid-column: 1 / -1;
+        }
+
+        .doctor-time-off-form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 22px;
+            padding-top: 17px;
+            border-top: 1px solid #edf1f4;
+        }
+
+        .doctor-time-off-form-actions p {
+            margin: 0;
+            color: #71849a;
+            font-size: 13px;
+        }
+
+        .doctor-time-off-history {
+            margin-top: 34px;
+        }
+
+        .doctor-time-off-empty {
+            padding: 20px 22px;
+        }
+
+        .doctor-time-off-empty p {
+            margin: 0;
+        }
+
+        .doctor-time-off-list {
+            display: grid;
+            gap: 11px;
+        }
+
+        .doctor-time-off-item {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+        }
+
+        .doctor-time-off-date-icon {
+            display: grid;
+            flex: 0 0 44px;
+            width: 44px;
+            height: 44px;
+            place-items: center;
+            border-radius: 13px;
+            background: #e9f4f5;
+            color: #176b87;
+        }
+
+        .doctor-time-off-date-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.7;
+        }
+
+        .doctor-time-off-item-content {
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+
+        .doctor-time-off-item-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .doctor-time-off-item-heading > div {
+            min-width: 0;
+        }
+
+        .doctor-time-off-item-heading h3 {
+            margin: 0 0 4px;
+            color: #123f5b;
+            font-size: 15px;
+        }
+
+        .doctor-time-off-item-heading p {
+            margin: 0;
+            color: #425c73;
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+            overflow-wrap: anywhere;
+        }
+
+        .doctor-time-off-item-heading .doctor-time-off-time-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 7px 9px;
+        }
+
+        .doctor-time-off-status {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .doctor-time-off-status.is-upcoming {
+            background: #e8f5ee;
+            color: #26754f;
+        }
+
+        .doctor-time-off-status.is-past {
+            background: #edf1f4;
+            color: #71849a;
+        }
+
+        .doctor-time-off-item-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px 14px;
+            margin-top: 7px;
+            color: #8292a4;
+            font-size: 12px;
+        }
+
+        .doctor-time-off-item-meta span + span::before {
+            content: "·";
+            margin-right: 7px;
+            color: #b0bdc7;
+        }
+
+        .doctor-time-off-remove-form {
+            flex: 0 0 auto;
+        }
+
+        .doctor-time-off-remove-form button {
+            padding: 8px 11px;
+            font-size: 12px;
         }
 
         .patient-appointment-footer {
@@ -852,6 +1137,11 @@
             padding: 22px;
         }
 
+        .clinic-appointment-card[data-status="completed"],
+        .clinic-appointment-card[data-status="cancelled"] {
+            background: #f4f6f8;
+        }
+
         .clinic-appointment-card-main {
             display: grid;
             grid-template-columns: 66px minmax(0, 1fr);
@@ -914,28 +1204,33 @@
             font-variant-numeric: tabular-nums;
         }
 
-        .clinic-appointment-badges {
+        .clinic-appointment-time-row {
             display: flex;
-            flex: 0 0 auto;
+            align-items: baseline;
             flex-wrap: wrap;
-            justify-content: flex-end;
-            gap: 6px;
+            gap: 4px 7px;
+            margin: 0;
+        }
+
+        .clinic-appointment-time-row [data-time-status]::before {
+            content: "|";
+            margin-right: 7px;
+            color: #a1afbc;
+            font-weight: 400;
         }
 
         .clinic-appointment-live-status {
-            display: inline-flex;
-            align-items: center;
-            padding: 5px 9px;
-            border-radius: 999px;
-            background: #eef4f6;
-            color: #61748a;
-            font-size: 11px;
-            font-weight: 700;
+            color: #176b87;
+            font-size: 12px;
+            font-weight: 650;
         }
 
         .clinic-appointment-live-status[data-live-state="current"] {
-            background: #e6f5ee;
             color: #26754f;
+        }
+
+        .clinic-appointment-live-status[data-live-state="past"] {
+            color: #71849a;
         }
 
         .clinic-appointment-meta {
@@ -1063,11 +1358,6 @@
             margin-top: 20px;
         }
 
-        .clinic-appointments-cancel-link {
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-
         .clinic-workspace-page {
             width: min(100%, 980px);
             margin: 0 auto;
@@ -1075,11 +1365,6 @@
 
         .clinic-workspace-header {
             margin-bottom: 24px;
-        }
-
-        .clinic-workspace-cancel-link {
-            gap: 8px;
-            margin-bottom: 14px;
         }
 
         .clinic-workspace-card {
@@ -1649,6 +1934,309 @@
 
         .clinic-invitation-empty {
             padding: 20px;
+        }
+
+        .doctor-dashboard-page {
+            width: min(100%, 1080px);
+            margin: 0 auto;
+        }
+
+        .doctor-dashboard-welcome {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            padding: clamp(26px, 4vw, 40px);
+            border: 1px solid #d9e8ed;
+            border-radius: 20px;
+            background: linear-gradient(120deg, #fff 0%, #f5fbfb 100%);
+            box-shadow: 0 12px 30px #123f5b0a;
+        }
+
+        .doctor-dashboard-welcome-copy {
+            min-width: 0;
+        }
+
+        .doctor-dashboard-welcome h1 {
+            margin: 12px 0 8px;
+            color: #123f5b;
+            font-size: clamp(28px, 4vw, 38px);
+        }
+
+        .doctor-dashboard-welcome-copy > p {
+            max-width: 620px;
+            margin: 0;
+            color: #61748a;
+            font-size: 16px;
+        }
+
+        .doctor-dashboard-credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 28px;
+            margin-top: 22px;
+        }
+
+        .doctor-dashboard-credentials > div {
+            display: grid;
+            gap: 4px;
+        }
+
+        .doctor-dashboard-credentials span {
+            color: #8292a4;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .doctor-dashboard-credentials strong {
+            color: #344e68;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .doctor-verification-card {
+            display: flex;
+            flex: 0 0 min(300px, 35%);
+            align-items: flex-start;
+            gap: 12px;
+            padding: 17px;
+            border: 1px solid #dce7ed;
+            border-radius: 14px;
+            background: #fff;
+        }
+
+        .doctor-verification-card.is-verified {
+            border-color: #c9deef;
+            background: #f3f9fe;
+        }
+
+        .doctor-verification-card.is-pending {
+            border-color: #f0dfbd;
+            background: #fffaf0;
+        }
+
+        .doctor-verification-icon {
+            display: grid;
+            flex: 0 0 36px;
+            width: 36px;
+            height: 36px;
+            place-items: center;
+            border-radius: 11px;
+            background: #fff;
+            color: #26754f;
+        }
+
+        .is-pending .doctor-verification-icon {
+            color: #a56819;
+        }
+
+        .doctor-verification-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+
+        .doctor-verification-icon img {
+            display: block;
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .doctor-verification-card.is-verified .doctor-verification-icon {
+            background: #e5f2fc;
+            color: #1d75b8;
+        }
+
+        .doctor-verification-card strong {
+            color: #123f5b;
+            font-size: 14px;
+        }
+
+        .doctor-verification-card p {
+            margin: 5px 0 0;
+            color: #71849a;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .doctor-dashboard-section {
+            margin-top: 34px;
+        }
+
+        .doctor-dashboard-section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .doctor-dashboard-section-heading h2 {
+            margin: 0 0 5px;
+            color: #123f5b;
+            font-size: 22px;
+        }
+
+        .doctor-dashboard-section-heading p {
+            margin: 0;
+            color: #71849a;
+            font-size: 14px;
+        }
+
+        .doctor-dashboard-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .doctor-dashboard-action-card {
+            display: flex;
+            min-width: 0;
+            min-height: 124px;
+            align-items: center;
+            gap: 16px;
+            padding: 22px;
+            border: 1px solid #dce7ed;
+            border-radius: 15px;
+            background: #fff;
+            color: inherit;
+            text-decoration: none;
+            transition: border-color .16s ease, box-shadow .16s ease, color .16s ease;
+        }
+
+        .doctor-dashboard-action-card:hover {
+            border-color: #9cc8d2;
+            box-shadow: 0 8px 20px #123f5b0c;
+            color: #123f5b;
+        }
+
+        .doctor-dashboard-action-card:focus-visible {
+            outline: 3px solid #176b8740;
+            outline-offset: 3px;
+        }
+
+        .doctor-dashboard-action-icon,
+        .doctor-dashboard-clinic-icon,
+        .doctor-dashboard-empty-icon {
+            display: grid;
+            flex: 0 0 46px;
+            width: 46px;
+            height: 46px;
+            place-items: center;
+            border-radius: 13px;
+            background: #e9f4f5;
+            color: #176b87;
+        }
+
+        .doctor-dashboard-action-icon svg,
+        .doctor-dashboard-clinic-icon svg,
+        .doctor-dashboard-empty-icon svg {
+            width: 23px;
+            height: 23px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.7;
+        }
+
+        .doctor-dashboard-action-copy {
+            display: grid;
+            min-width: 0;
+            gap: 5px;
+        }
+
+        .doctor-dashboard-action-copy strong {
+            color: #123f5b;
+            font-size: 16px;
+        }
+
+        .doctor-dashboard-action-copy > span {
+            color: #71849a;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .doctor-dashboard-action-arrow {
+            flex: 0 0 auto;
+            margin-left: auto;
+            color: #39869a;
+            font-size: 21px;
+            line-height: 1;
+        }
+
+        .doctor-dashboard-clinics {
+            margin-bottom: 8px;
+        }
+
+        .doctor-dashboard-clinic-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .doctor-dashboard-clinic-card {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            gap: 15px;
+            padding: 17px 19px;
+        }
+
+        .doctor-dashboard-clinic-copy {
+            display: grid;
+            min-width: 0;
+            flex: 1 1 auto;
+            gap: 3px;
+        }
+
+        .doctor-dashboard-clinic-copy h3 {
+            margin: 0;
+            color: #123f5b;
+            font-size: 15px;
+        }
+
+        .doctor-dashboard-clinic-copy p {
+            margin: 0;
+            color: #61748a;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .doctor-dashboard-clinic-copy > span {
+            color: #8292a4;
+            font-size: 12px;
+        }
+
+        .doctor-dashboard-clinics-empty {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px;
+        }
+
+        .doctor-dashboard-empty-icon {
+            flex: 0 0 42px;
+            width: 42px;
+            height: 42px;
+        }
+
+        .doctor-dashboard-clinics-empty h3 {
+            margin: 1px 0 4px;
+            color: #123f5b;
+            font-size: 15px;
+        }
+
+        .doctor-dashboard-clinics-empty p {
+            margin: 0;
+            color: #71849a;
+            font-size: 13px;
         }
 
         .patient-profile-header {
@@ -2224,6 +2812,16 @@
             overflow: visible;
         }
 
+        .clinic-availability-service-description {
+            display: -webkit-box;
+            overflow: hidden;
+            margin: 0;
+            color: #61748a;
+            line-height: 1.55;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
         button.clinic-description-toggle {
             display: inline;
             margin-top: 6px;
@@ -2263,6 +2861,130 @@
             gap: 16px;
             padding: 28px 0;
             justify-content: center;
+        }
+
+        .doctor-invitation-main {
+            display: grid;
+            width: min(100% - 40px, 820px);
+            min-height: 100vh;
+            align-content: center;
+            justify-items: center;
+            margin: 0 auto;
+            padding: 18px 0;
+        }
+
+        .authenticated-doctor-invitation {
+            display: flex;
+            height: 100vh;
+            height: 100dvh;
+            min-height: 100vh;
+            min-height: 100dvh;
+            flex-direction: column;
+        }
+
+        .authenticated-doctor-invitation .topbar {
+            flex: 0 0 auto;
+        }
+
+        .authenticated-doctor-invitation .doctor-invitation-main {
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
+        .doctor-invitation-card {
+            width: 100%;
+            max-width: 780px;
+            padding: clamp(22px, 4vw, 34px);
+        }
+
+        .doctor-invitation-logo {
+            margin-bottom: 7px;
+        }
+
+        .doctor-invitation-logo img {
+            width: min(120px, 38vw);
+        }
+
+        .doctor-invitation-eyebrow {
+            display: block;
+            margin: 0 0 7px;
+            text-align: center;
+        }
+
+        .doctor-invitation-heading {
+            margin-bottom: 7px;
+            font-size: clamp(24px, 3vw, 30px);
+        }
+
+        .doctor-invitation-intro {
+            margin: 0 auto 14px;
+            font-size: 14px;
+        }
+
+        .doctor-invitation-message {
+            margin: 0 0 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .doctor-invitation-form {
+            width: 100%;
+        }
+
+        .doctor-invitation-fields {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 18px;
+        }
+
+        .doctor-invitation-fields > div {
+            min-width: 0;
+        }
+
+        .doctor-invitation-fields label {
+            margin: 10px 0 5px;
+            font-size: 13px;
+        }
+
+        .doctor-invitation-fields input,
+        .doctor-invitation-fields select,
+        .doctor-invitation-fields textarea {
+            padding: 9px 11px;
+            font-size: 14px;
+        }
+
+        .doctor-invitation-fields textarea {
+            min-height: 41px;
+            resize: vertical;
+        }
+
+        .doctor-invitation-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+
+        .doctor-invitation-single-action {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .doctor-invitation-decline {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            padding-top: 14px;
+            border-top: 1px solid #edf1f4;
+        }
+
+        .doctor-invitation-decline button {
+            padding: 9px 13px;
+            font-size: 13px;
+        }
+
+        .doctor-invitation-error {
+            text-align: center;
         }
 
         .auth-card {
@@ -2444,6 +3166,34 @@
             color: #48627a;
             font-size: 12px;
             font-weight: 700;
+        }
+
+        .appointment-status-pill {
+            border: 1px solid transparent;
+        }
+
+        .appointment-status-scheduled {
+            border-color: #f0dfb5;
+            background: #fff6df;
+            color: #8a5a12;
+        }
+
+        .appointment-status-confirmed {
+            border-color: #c9e5d5;
+            background: #e8f5ee;
+            color: #26754f;
+        }
+
+        .appointment-status-completed {
+            border-color: #ceddf8;
+            background: #eaf1ff;
+            color: #315ea8;
+        }
+
+        .appointment-status-cancelled {
+            border-color: #dce3e8;
+            background: #edf1f4;
+            color: #61748a;
         }
 
         .stack {
@@ -2724,6 +3474,24 @@
         }
 
         @media (max-width: 600px) {
+            .doctor-invitation-main {
+                width: min(100% - 28px, 480px);
+                min-height: 100vh;
+                padding: 16px 0;
+            }
+
+            .doctor-invitation-card {
+                padding: 22px 18px;
+            }
+
+            .doctor-invitation-fields {
+                grid-template-columns: 1fr;
+            }
+
+            .doctor-invitation-actions > button {
+                width: 100%;
+            }
+
             .topbar {
                 padding: 16px 20px;
             }
@@ -2827,6 +3595,74 @@
                 margin-top: 14px;
             }
 
+            .doctor-appointments-filter-card {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 22px;
+                padding: 17px;
+            }
+
+            .doctor-appointments-filter-form {
+                align-items: flex-end;
+                flex-wrap: wrap;
+            }
+
+            .doctor-appointments-filter-form > div {
+                flex: 1 1 150px;
+            }
+
+            .doctor-appointments-filter-form select {
+                width: 100%;
+            }
+
+            .doctor-time-off-form-card {
+                padding: 18px;
+            }
+
+            .doctor-time-off-fields {
+                grid-template-columns: 1fr;
+            }
+
+            .doctor-time-off-reason-field {
+                grid-column: auto;
+            }
+
+            .doctor-time-off-form-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .doctor-time-off-form-actions button {
+                width: 100%;
+            }
+
+            .doctor-time-off-history {
+                margin-top: 26px;
+            }
+
+            .doctor-time-off-item {
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 11px;
+                padding: 15px;
+            }
+
+            .doctor-time-off-item-content {
+                flex-basis: calc(100% - 56px);
+            }
+
+            .doctor-time-off-item-heading {
+                align-items: flex-start;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .doctor-time-off-remove-form {
+                margin-left: 55px;
+            }
+
             .patient-appointment-footer {
                 align-items: flex-start;
                 flex-direction: column;
@@ -2918,10 +3754,6 @@
             .clinic-appointment-heading-row {
                 flex-direction: column;
                 gap: 9px;
-            }
-
-            .clinic-appointment-badges {
-                justify-content: flex-start;
             }
 
             .clinic-appointment-meta {
@@ -3062,6 +3894,41 @@
 
             .clinic-invitation-row {
                 align-items: flex-start;
+            }
+
+            .doctor-dashboard-welcome {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 20px;
+                padding: 22px;
+            }
+
+            .doctor-verification-card {
+                flex-basis: auto;
+            }
+
+            .doctor-dashboard-section {
+                margin-top: 26px;
+            }
+
+            .doctor-dashboard-actions-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .doctor-dashboard-action-card {
+                min-height: 108px;
+                gap: 12px;
+                padding: 17px;
+            }
+
+            .doctor-dashboard-clinic-card {
+                gap: 11px;
+                padding: 15px;
+            }
+
+            .doctor-dashboard-clinic-card > .pill {
+                align-self: flex-start;
             }
 
             .clinic-dashboard-card {
@@ -3354,7 +4221,7 @@
     </style>
 </head>
 
-<body @if (($mainClass ?? null) === 'welcome-main' && auth()->check()) class="authenticated-welcome" @endif>
+<body @if (($mainClass ?? null) === 'welcome-main' && auth()->check()) class="authenticated-welcome" @elseif (($mainClass ?? null) === 'doctor-invitation-main' && auth()->check()) class="authenticated-doctor-invitation" @endif>
     @auth
         <header class="topbar">
             <a class="brand" href="{{ route('home') }}">CareOn</a>

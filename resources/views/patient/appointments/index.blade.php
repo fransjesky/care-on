@@ -16,7 +16,8 @@
                     <h2 id="upcoming-appointments-heading">Upcoming visits</h2>
                     <p>Your scheduled appointments and available actions.</p>
                 </div>
-                <span class="clinic-count">{{ $upcomingAppointments->count() }} {{ $upcomingAppointments->count() === 1 ? 'visit' : 'visits' }}</span>
+                <span class="clinic-count">{{ $upcomingAppointments->count() }}
+                    {{ $upcomingAppointments->count() === 1 ? 'visit' : 'visits' }}</span>
             </div>
 
             <div class="patient-appointment-list">
@@ -33,31 +34,40 @@
                             <div class="patient-appointment-title-row">
                                 <div>
                                     <h3>{{ $appointment->clinic->name }}</h3>
-                                    <p class="patient-appointment-time">{{ $localStart->format('l, F j · g:i A') }} <span>· {{ $appointment->clinic->timezone }}</span></p>
+                                    <p class="patient-appointment-time">{{ $localStart->format('l, F j · g:i A') }} <span>·
+                                            {{ $appointment->clinic->timezone }}</span></p>
                                 </div>
-                                <span class="pill patient-appointment-status">{{ ucfirst($appointment->status) }}</span>
+                                <span class="pill patient-appointment-status appointment-status-pill appointment-status-{{ $appointment->status }}">{{ ucfirst($appointment->status) }}</span>
                             </div>
 
                             <div class="patient-appointment-details">
-                                <p><span>Doctor</span><strong>{{ $appointment->doctor->user->name }}</strong> <span class="patient-appointment-specialty">· {{ $appointment->doctor->specialty->name }}</span></p>
-                                <p><span>Visit</span><strong>{{ $appointment->service?->name ?? 'General appointment' }}</strong></p>
+                                <p><span>Doctor</span><strong>{{ $appointment->doctor->user->name }}</strong> <span
+                                        class="patient-appointment-specialty">·
+                                        {{ $appointment->doctor->specialty->name }}</span></p>
+                                <p><span>Visit</span><strong>{{ $appointment->service?->name ?? 'General appointment' }}</strong>
+                                </p>
                                 <p><span>Location</span><strong>{{ $appointment->clinic->address }}</strong></p>
                             </div>
 
                             <div class="patient-appointment-footer">
                                 @if (in_array($appointment->id, $changeableIds, true))
-                                    <a class="button secondary" href="{{ route('appointments.reschedule.create', $appointment) }}">Reschedule</a>
+                                    <a class="button secondary"
+                                        href="{{ route('appointments.reschedule.create', $appointment) }}">Reschedule</a>
                                     <details class="patient-cancel-details">
                                         <summary>Cancel appointment</summary>
                                         <form method="POST" action="{{ route('appointments.cancel', $appointment) }}">
                                             @csrf
-                                            <label for="reason-{{ $appointment->id }}">Reason <span class="muted">(optional)</span></label>
-                                            <input id="reason-{{ $appointment->id }}" name="cancel_reason" type="text" maxlength="255">
-                                            <button type="submit" class="patient-cancel-button">Confirm cancellation</button>
+                                            <label for="reason-{{ $appointment->id }}">Reason <span
+                                                    class="muted">(optional)</span></label>
+                                            <input id="reason-{{ $appointment->id }}" name="cancel_reason" type="text"
+                                                maxlength="255">
+                                            <button type="submit" class="patient-cancel-button">Confirm
+                                                cancellation</button>
                                         </form>
                                     </details>
                                 @else
-                                    <p class="patient-cancellation-note">Changes are available until 30 minutes before your appointment.</p>
+                                    <p class="patient-cancellation-note">Changes are available until 30 minutes before your
+                                        appointment.</p>
                                 @endif
                             </div>
                         </div>
@@ -89,15 +99,24 @@
                 <div class="card patient-history-card">
                     <div class="table-wrap">
                         <table>
-                            <thead><tr><th>Date and time</th><th>Clinic</th><th>Doctor</th><th>Service</th><th>Status</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Date and time</th>
+                                    <th>Clinic</th>
+                                    <th>Doctor</th>
+                                    <th>Service</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 @foreach ($pastAppointments as $appointment)
                                     <tr>
-                                        <td>{{ $appointment->starts_at->setTimezone($appointment->clinic->timezone)->format('M j, Y · g:i A') }}</td>
+                                        <td>{{ $appointment->starts_at->setTimezone($appointment->clinic->timezone)->format('M j, Y · g:i A') }}
+                                        </td>
                                         <td>{{ $appointment->clinic->name }}</td>
                                         <td>{{ $appointment->doctor->user->name }}</td>
                                         <td>{{ $appointment->service?->name ?? 'General appointment' }}</td>
-                                        <td><span class="pill">{{ ucfirst($appointment->status) }}</span></td>
+                                        <td><span class="pill appointment-status-pill appointment-status-{{ $appointment->status }}">{{ ucfirst($appointment->status) }}</span></td>
                                     </tr>
                                 @endforeach
                             </tbody>

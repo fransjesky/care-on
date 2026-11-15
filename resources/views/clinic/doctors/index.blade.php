@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="clinic-workspace-page">
-        <a class="button secondary clinic-workspace-cancel-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Cancel</a>
+        <a class="back-link" href="{{ route('clinic.dashboard') }}"><span aria-hidden="true">←</span> Back to dashboard</a>
         <header class="clinic-directory-header patient-profile-header clinic-workspace-header">
             <div>
                 <span class="clinic-directory-eyebrow">Clinic administration</span>

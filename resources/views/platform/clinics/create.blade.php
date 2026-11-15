@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="platform-clinic-create-page">
+        <a class="back-link" href="{{ route('platform.clinics.index') }}"><span aria-hidden="true">←</span> Back to dashboard</a>
         <header class="clinic-directory-header platform-clinic-create-header">
             <div>
                 <span class="clinic-directory-eyebrow">Platform administration</span>
@@ -66,7 +67,6 @@
                 </div>
 
                 <div class="platform-clinic-form-actions">
-                    <a class="button secondary" href="{{ route('platform.clinics.index') }}">Cancel</a>
                     <button id="create-clinic-button" type="submit" disabled>Create clinic and send invite</button>
                 </div>
             </form>
