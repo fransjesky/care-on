@@ -2682,6 +2682,66 @@
             border-top: 1px solid #edf1f4;
         }
 
+        .platform-catalog-bulk-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 12px 14px;
+            border: 1px solid #e4ebef;
+            border-radius: 11px;
+            background: #f8fafb;
+        }
+
+        .platform-catalog-bulk-toolbar label {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            color: #344e68;
+            font-size: 13px;
+            font-weight: 650;
+            white-space: nowrap;
+        }
+
+        .platform-catalog-bulk-toolbar input[type="checkbox"],
+        .platform-catalog-select {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            accent-color: #176b87;
+        }
+
+        .platform-catalog-bulk-toolbar > span {
+            min-width: 0;
+            flex: 1 1 auto;
+            color: #71849a;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .platform-catalog-delete {
+            border: 1px solid #e5caca;
+            background: #fff;
+            color: #a53232;
+        }
+
+        .platform-catalog-delete:hover {
+            background: #fff2f0;
+            color: #842828;
+        }
+
+        .platform-catalog-bulk-delete {
+            flex: 0 0 auto;
+            padding: 8px 11px;
+            font-size: 12px;
+        }
+
+        .platform-catalog-delete-error {
+            margin: 10px 0 0;
+        }
+
         .platform-catalog-item {
             display: flex;
             align-items: center;
@@ -2690,6 +2750,91 @@
             min-width: 0;
             padding: 12px 2px;
             border-bottom: 1px solid #edf1f4;
+        }
+
+        .platform-catalog-manage-item {
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .platform-catalog-select {
+            flex: 0 0 16px;
+            margin-top: 3px;
+        }
+
+        .platform-catalog-item-copy {
+            display: grid;
+            min-width: 0;
+            flex: 1 1 auto;
+            gap: 5px;
+        }
+
+        .platform-catalog-item-actions {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: flex-start;
+            gap: 7px;
+        }
+
+        .platform-catalog-item-actions > form {
+            margin: 0;
+        }
+
+        .platform-catalog-item-actions .platform-catalog-delete,
+        .platform-catalog-edit > summary {
+            min-height: 34px;
+            padding: 7px 10px;
+            font-size: 12px;
+        }
+
+        .platform-catalog-edit {
+            position: relative;
+        }
+
+        .platform-catalog-edit > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .platform-catalog-edit > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .platform-catalog-edit[open] {
+            z-index: 2;
+        }
+
+        .platform-catalog-edit > form {
+            position: static;
+            display: grid;
+            width: min(340px, calc(100vw - 48px));
+            gap: 8px;
+            margin-top: 8px;
+            padding: 15px;
+            border: 1px solid #dce7ed;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 14px 34px #123f5b1c;
+        }
+
+        .platform-catalog-edit > form label {
+            margin: 4px 0 0;
+            font-size: 12px;
+        }
+
+        .platform-catalog-edit > form input,
+        .platform-catalog-edit > form select,
+        .platform-catalog-edit > form textarea {
+            width: 100%;
+            padding: 9px 10px;
+            font-size: 13px;
+        }
+
+        .platform-catalog-edit > form button {
+            justify-self: end;
+            margin-top: 5px;
+            padding: 8px 11px;
+            font-size: 12px;
         }
 
         .platform-catalog-item > strong,
@@ -2706,6 +2851,10 @@
         }
 
         .platform-service-item > div {
+            min-width: 0;
+        }
+
+        .platform-service-item > .platform-catalog-item-copy {
             min-width: 0;
         }
 
@@ -4072,6 +4221,44 @@
 
             .platform-catalog-list-card {
                 padding: 10px 15px 15px;
+            }
+
+            .platform-catalog-bulk-toolbar {
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .platform-catalog-bulk-toolbar > span {
+                order: 3;
+                flex-basis: 100%;
+            }
+
+            .platform-catalog-bulk-delete {
+                margin-left: auto;
+            }
+
+            .platform-catalog-manage-item {
+                flex-wrap: wrap;
+                gap: 9px;
+            }
+
+            .platform-catalog-item-copy {
+                flex-basis: calc(100% - 28px);
+            }
+
+            .platform-catalog-item-actions {
+                margin-left: 28px;
+            }
+
+            .platform-catalog-edit > form {
+                position: fixed;
+                top: 50%;
+                right: 14px;
+                left: 14px;
+                width: auto;
+                max-height: 80vh;
+                overflow-y: auto;
+                transform: translateY(-50%);
             }
 
             .platform-catalog-items {

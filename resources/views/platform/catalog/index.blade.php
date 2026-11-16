@@ -129,11 +129,40 @@
                 </div>
 
                 <section id="specialties-panel" class="platform-catalog-tabpanel" role="tabpanel" aria-labelledby="specialties-tab" tabindex="0">
+                    <div class="platform-catalog-bulk-toolbar">
+                        <label><input type="checkbox" data-catalog-select-all> Select all</label>
+                        <span>Specialties assigned to doctors cannot be deleted. Services linked to a specialty become general services if it is removed.</span>
+                        <button class="platform-catalog-delete platform-catalog-bulk-delete" type="submit" form="bulk-delete-specialties" disabled>Delete selected</button>
+                        <form id="bulk-delete-specialties" class="platform-catalog-bulk-form" method="POST" action="{{ route('platform.settings.specialties.bulk-destroy') }}" hidden>@csrf</form>
+                    </div>
+                    @error('specialty_delete') <p class="error platform-catalog-delete-error">{{ $message }}</p> @enderror
+                    @error('specialty_ids') <p class="error platform-catalog-delete-error">{{ $message }}</p> @enderror
                     <div class="platform-catalog-items">
                         @forelse ($specialties as $specialty)
-                            <div class="platform-catalog-item">
-                                <strong>{{ $specialty->name }}</strong>
-                                <span class="platform-catalog-item-meta">{{ $specialty->doctors_count }} {{ $specialty->doctors_count === 1 ? 'doctor' : 'doctors' }}</span>
+                            <div class="platform-catalog-item platform-catalog-manage-item">
+                                <input class="platform-catalog-select" type="checkbox" form="bulk-delete-specialties" name="specialty_ids[]" value="{{ $specialty->id }}" aria-label="Select {{ $specialty->name }}">
+                                <div class="platform-catalog-item-copy">
+                                    <strong>{{ $specialty->name }}</strong>
+                                    <span class="platform-catalog-item-meta">{{ $specialty->doctors_count }} {{ $specialty->doctors_count === 1 ? 'doctor' : 'doctors' }} · {{ $specialty->services_count }} {{ $specialty->services_count === 1 ? 'service' : 'services' }}</span>
+                                </div>
+                                <div class="platform-catalog-item-actions">
+                                    <details class="platform-catalog-edit" @if ($errors->has('specialty_name_'.$specialty->id)) open @endif>
+                                        <summary class="button secondary">Edit</summary>
+                                        <form method="POST" action="{{ route('platform.settings.specialties.update', $specialty) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <label for="specialty-name-{{ $specialty->id }}">Specialty name</label>
+                                            <input id="specialty-name-{{ $specialty->id }}" name="specialty_name_{{ $specialty->id }}" value="{{ old('specialty_name_'.$specialty->id, $specialty->name) }}" required maxlength="255">
+                                            @error('specialty_name_'.$specialty->id) <p class="error">{{ $message }}</p> @enderror
+                                            <button type="submit">Save changes</button>
+                                        </form>
+                                    </details>
+                                    <form method="POST" action="{{ route('platform.settings.specialties.destroy', $specialty) }}" onsubmit="return confirm('Delete this specialty?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="platform-catalog-delete" type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         @empty
                             <p class="platform-catalog-empty-note">No specialties have been added yet.</p>
@@ -142,16 +171,54 @@
                 </section>
 
                 <section id="services-panel" class="platform-catalog-tabpanel" role="tabpanel" aria-labelledby="services-tab" tabindex="0" hidden>
+                    <div class="platform-catalog-bulk-toolbar">
+                        <label><input type="checkbox" data-catalog-select-all> Select all</label>
+                        <span>Services linked to a clinic or appointment cannot be deleted. Remove them from clinics first.</span>
+                        <button class="platform-catalog-delete platform-catalog-bulk-delete" type="submit" form="bulk-delete-services" disabled>Delete selected</button>
+                        <form id="bulk-delete-services" class="platform-catalog-bulk-form" method="POST" action="{{ route('platform.settings.services.bulk-destroy') }}" hidden>@csrf</form>
+                    </div>
+                    @error('service_delete') <p class="error platform-catalog-delete-error">{{ $message }}</p> @enderror
+                    @error('service_ids') <p class="error platform-catalog-delete-error">{{ $message }}</p> @enderror
                     <div class="platform-catalog-items">
                         @forelse ($services as $service)
-                            <div class="platform-catalog-item platform-service-item">
-                                <div>
+                            <div class="platform-catalog-item platform-catalog-manage-item platform-service-item">
+                                <input class="platform-catalog-select" type="checkbox" form="bulk-delete-services" name="service_ids[]" value="{{ $service->id }}" aria-label="Select {{ $service->name }}">
+                                <div class="platform-catalog-item-copy">
                                     <strong>{{ $service->name }}</strong>
                                     @if ($service->description)
                                         <p>{{ $service->description }}</p>
                                     @endif
+                                    <span class="platform-catalog-item-meta">{{ $service->specialty?->name ?? 'General' }} · {{ $service->clinic_services_count }} {{ $service->clinic_services_count === 1 ? 'clinic' : 'clinics' }} · {{ $service->appointments_count }} {{ $service->appointments_count === 1 ? 'appointment' : 'appointments' }}</span>
                                 </div>
-                                <span class="platform-catalog-item-meta">{{ $service->specialty?->name ?? 'General' }}</span>
+                                <div class="platform-catalog-item-actions">
+                                    <details class="platform-catalog-edit" @if ($errors->has('service_name_'.$service->id) || $errors->has('service_specialty_'.$service->id) || $errors->has('service_description_'.$service->id)) open @endif>
+                                        <summary class="button secondary">Edit</summary>
+                                        <form method="POST" action="{{ route('platform.settings.services.update', $service) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <label for="service-name-{{ $service->id }}">Service name</label>
+                                            <input id="service-name-{{ $service->id }}" name="service_name_{{ $service->id }}" value="{{ old('service_name_'.$service->id, $service->name) }}" required maxlength="255">
+                                            @error('service_name_'.$service->id) <p class="error">{{ $message }}</p> @enderror
+                                            <label for="service-specialty-{{ $service->id }}">Related specialty</label>
+                                            <select id="service-specialty-{{ $service->id }}" name="service_specialty_{{ $service->id }}">
+                                                <option value="">General service</option>
+                                                @foreach ($specialties as $specialty)
+                                                    <option value="{{ $specialty->id }}" @selected(old('service_specialty_'.$service->id, $service->specialty_id) == $specialty->id)>{{ $specialty->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('service_specialty_'.$service->id) <p class="error">{{ $message }}</p> @enderror
+                                            <label for="service-description-{{ $service->id }}">Description <span class="muted">(optional)</span></label>
+                                            <textarea id="service-description-{{ $service->id }}" name="service_description_{{ $service->id }}" rows="3" maxlength="5000">{{ old('service_description_'.$service->id, $service->description) }}</textarea>
+                                            @error('service_description_'.$service->id) <p class="error">{{ $message }}</p> @enderror
+                                            <button type="submit">Save changes</button>
+                                        </form>
+                                    </details>
+                                    <form method="POST" action="{{ route('platform.settings.services.destroy', $service) }}" onsubmit="return confirm('Delete this service?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="platform-catalog-delete" type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         @empty
                             <p class="platform-catalog-empty-note">No services have been added yet.</p>
@@ -202,5 +269,53 @@
                 activateCatalogTab(catalogTabs[nextIndex]);
             });
         });
+
+        document.querySelectorAll('.platform-catalog-tabpanel').forEach(function (panel) {
+            const selectAll = panel.querySelector('[data-catalog-select-all]');
+            const selections = Array.from(panel.querySelectorAll('.platform-catalog-select'));
+            const bulkForm = panel.querySelector('.platform-catalog-bulk-form');
+            const deleteButton = panel.querySelector('.platform-catalog-bulk-delete');
+
+            function updateBulkSelection() {
+                const selectedCount = selections.filter(function (selection) {
+                    return selection.checked;
+                }).length;
+
+                if (selectAll) {
+                    selectAll.checked = selections.length > 0 && selectedCount === selections.length;
+                    selectAll.indeterminate = selectedCount > 0 && selectedCount < selections.length;
+                }
+
+                if (deleteButton) {
+                    deleteButton.disabled = selectedCount === 0;
+                }
+            }
+
+            selectAll?.addEventListener('change', function () {
+                selections.forEach(function (selection) {
+                    selection.checked = selectAll.checked;
+                });
+                updateBulkSelection();
+            });
+
+            selections.forEach(function (selection) {
+                selection.addEventListener('change', updateBulkSelection);
+            });
+
+            bulkForm?.addEventListener('submit', function (event) {
+                if (!window.confirm('Delete all selected items? This cannot be undone.')) {
+                    event.preventDefault();
+                }
+            });
+
+            updateBulkSelection();
+        });
+
+        const specialtyErrors = document.querySelector('#specialties-panel .error');
+        const serviceErrors = document.querySelector('#services-panel .error');
+
+        if (serviceErrors && !specialtyErrors) {
+            activateCatalogTab(document.getElementById('services-tab'));
+        }
     </script>
 @endsection

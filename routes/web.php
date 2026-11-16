@@ -80,7 +80,13 @@ Route::middleware('auth')->group(function (): void {
     Route::prefix('platform')->name('platform.')->middleware('role:platform_admin')->group(function (): void {
         Route::get('/settings', [CatalogController::class, 'index'])->name('settings.index');
         Route::post('/settings/specialties', [CatalogController::class, 'storeSpecialty'])->name('settings.specialties.store');
+        Route::put('/settings/specialties/{specialty}', [CatalogController::class, 'updateSpecialty'])->name('settings.specialties.update');
+        Route::delete('/settings/specialties/{specialty}', [CatalogController::class, 'destroySpecialty'])->name('settings.specialties.destroy');
+        Route::post('/settings/specialties/bulk-delete', [CatalogController::class, 'destroySpecialties'])->name('settings.specialties.bulk-destroy');
         Route::post('/settings/services', [CatalogController::class, 'storeService'])->name('settings.services.store');
+        Route::put('/settings/services/{service}', [CatalogController::class, 'updateService'])->name('settings.services.update');
+        Route::delete('/settings/services/{service}', [CatalogController::class, 'destroyService'])->name('settings.services.destroy');
+        Route::post('/settings/services/bulk-delete', [CatalogController::class, 'destroyServices'])->name('settings.services.bulk-destroy');
         Route::post('/doctors/{doctor}/verify', [CatalogController::class, 'verifyDoctor'])->name('doctors.verify');
         Route::get('/clinics', [ClinicController::class, 'index'])->name('clinics.index');
         Route::get('/clinics/create', [ClinicController::class, 'create'])->name('clinics.create');
