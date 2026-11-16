@@ -50,7 +50,7 @@ class ClinicDirectoryController extends Controller
     ): View {
         abort_unless($clinic->status === 'active', 404);
 
-        $defaultDate = CarbonImmutable::now($clinic->timezone)->addDay()->toDateString();
+        $defaultDate = CarbonImmutable::now($clinic->timezone)->toDateString();
         $request->merge(['date' => $request->query('date', $defaultDate)]);
         $validated = $request->validate([
             'date' => ['required', 'date_format:Y-m-d', 'after_or_equal:'.CarbonImmutable::now($clinic->timezone)->toDateString()],

@@ -248,27 +248,29 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 24px;
-            padding: 22px;
-            transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+            gap: 28px;
+            padding: 24px;
+            border: 1px solid #dce7ed;
+            box-shadow: 0 8px 22px #123f5b08;
+            transition: border-color .18s ease, box-shadow .18s ease;
         }
 
         .clinic-directory-card:hover {
             border-color: #c8dfe5;
-            box-shadow: 0 12px 30px #1b3a5718;
+            box-shadow: 0 12px 28px #123f5b12;
         }
 
         .clinic-directory-details {
             display: flex;
             min-width: 0;
             align-items: center;
-            gap: 20px;
+            gap: 22px;
         }
 
         .clinic-directory-photo {
-            flex: 0 0 104px;
-            width: 104px;
-            height: 104px;
+            flex: 0 0 112px;
+            width: 112px;
+            height: 112px;
             border: 1px solid #e4edf0;
             border-radius: 15px;
             background: #f1f6f8;
@@ -280,33 +282,74 @@
         }
 
         .clinic-directory-copy h2 {
-            margin: 0 0 7px;
+            margin: 0 0 10px;
             color: #123f5b;
-            font-size: 19px;
+            font-size: 20px;
+            line-height: 1.3;
         }
 
-        .clinic-directory-address {
-            overflow: hidden;
-            margin: 0 0 5px;
-            color: #61748a;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .clinic-directory-meta {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
+        .clinic-directory-contact-list {
+            display: grid;
             gap: 7px;
+        }
+
+        .clinic-directory-contact-item {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            gap: 8px;
             margin: 0;
-            color: #8292a4;
+            color: #61748a;
             font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .clinic-directory-contact-item svg,
+        .clinic-availability-contact-item svg {
+            flex: 0 0 17px;
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke: #39869a;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.7;
+        }
+
+        .clinic-directory-contact-item span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .clinic-directory-contact-item:nth-child(2) span {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
         }
 
         .clinic-directory-action {
             flex: 0 0 auto;
+            min-height: 44px;
             gap: 9px;
             white-space: nowrap;
+        }
+
+        .clinic-availability-contact-list {
+            display: grid;
+            gap: 8px;
+            margin: 14px 0 0;
+        }
+
+        .clinic-availability-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            color: #61748a;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
         }
 
         .clinic-directory-action:focus-visible {
@@ -2831,6 +2874,10 @@
             color: #176b87;
             font-size: 14px;
             font-weight: 650;
+        }
+
+        button.clinic-description-toggle[hidden] {
+            display: none;
         }
 
         button.clinic-description-toggle:hover {

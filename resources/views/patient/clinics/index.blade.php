@@ -39,25 +39,37 @@
 
         <div class="clinic-directory-list">
             @forelse ($clinics as $clinic)
+                @php
+                    $clinicPhoneDigits = preg_replace('/\D+/', '', (string) $clinic->phone);
+                    $clinicPhone = $clinicPhoneDigits !== '' ? rtrim(chunk_split($clinicPhoneDigits, 4, '-'), '-') : null;
+                @endphp
                 <section class="card clinic-directory-card">
                     <div class="clinic-directory-details">
                         <img src="{{ $clinic->photo_url ?: asset('hospital-placeholder.png') }}" alt="{{ $clinic->name }}"
                             loading="lazy" referrerpolicy="no-referrer" class="clinic-directory-photo">
                         <div class="clinic-directory-copy">
                             <h2>{{ $clinic->name }}</h2>
-                            <p class="clinic-directory-address">{{ $clinic->address ?: 'Address not provided' }}</p>
-                            <p class="clinic-directory-meta">
-                                <span>{{ $clinic->phone ?: 'Phone not provided' }}</span>
-                                <span class="clinic-meta-separator" aria-hidden="true">·</span>
-                                <span>{{ $clinic->timezone }}</span>
-                            </p>
+                            <div class="clinic-directory-contact-list">
+                                <p class="clinic-directory-contact-item">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                                    <span>{{ $clinic->timezone }}</span>
+                                </p>
+                                <p class="clinic-directory-contact-item">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                                    <span>{{ $clinic->address ?: 'Address not provided' }}</span>
+                                </p>
+                                <p class="clinic-directory-contact-item">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h3l1.5 4-2 1.7a15 15 0 0 0 5.3 5.3l1.7-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 5 5.7 2 2 0 0 1 7 3.5Z"/></svg>
+                                    <span>{{ $clinicPhone ?: 'Phone not provided' }}</span>
+                                </p>
+                            </div>
                             @if ($clinic->description)
                                 <p class="clinic-list-description">{{ $clinic->description }}</p>
                             @endif
                         </div>
                     </div>
                     <a class="button clinic-directory-action"
-                        href="{{ route('clinics.availability', ['clinic' => $clinic, 'date' => now($clinic->timezone)->addDay()->toDateString()]) }}">
+                        href="{{ route('clinics.availability', ['clinic' => $clinic, 'date' => now($clinic->timezone)->toDateString()]) }}">
                         View availability <span aria-hidden="true">→</span>
                     </a>
                 </section>
