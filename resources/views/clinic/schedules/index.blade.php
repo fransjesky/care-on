@@ -17,8 +17,8 @@
         </div>
 
         @forelse ($memberships as $membership)
-            <section class="card clinic-doctor-schedule-card">
-                <header class="clinic-doctor-schedule-header">
+            <details class="card clinic-doctor-schedule-card">
+                <summary class="clinic-doctor-schedule-header">
                     <span class="clinic-doctor-schedule-avatar" aria-hidden="true">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20v-1.5a7 7 0 0 1 14 0V20M18 6h4M20 4v4"/></svg>
                     </span>
@@ -27,7 +27,7 @@
                         <p>{{ $membership->doctor->specialty->name }}</p>
                     </div>
                     <span class="clinic-workspace-count">{{ $membership->schedules->count() }} {{ $membership->schedules->count() === 1 ? 'schedule' : 'schedules' }}</span>
-                </header>
+                </summary>
 
                 @if ($membership->schedules->isEmpty())
                     <div class="clinic-schedule-empty">
@@ -122,7 +122,7 @@
                     </form>
                     @error('end_time') <p class="error">{{ $message }}</p> @enderror
                 </div>
-            </section>
+            </details>
         @empty
             <section class="card clinic-workspace-empty clinic-no-doctors-empty">
                 <span aria-hidden="true">＋</span>

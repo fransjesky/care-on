@@ -1647,8 +1647,33 @@
             display: flex;
             align-items: center;
             gap: 13px;
+            cursor: pointer;
+            list-style: none;
             padding-bottom: 17px;
             border-bottom: 1px solid #edf1f4;
+        }
+
+        .clinic-doctor-schedule-header::-webkit-details-marker {
+            display: none;
+        }
+
+        .clinic-doctor-schedule-header::after {
+            margin-left: 12px;
+            color: #176b87;
+            content: '+';
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .clinic-doctor-schedule-card[open] > .clinic-doctor-schedule-header::after {
+            content: '−';
+        }
+
+        .clinic-doctor-schedule-header:focus-visible {
+            border-radius: 8px;
+            outline: 3px solid #176b8740;
+            outline-offset: 4px;
         }
 
         .clinic-doctor-schedule-avatar {
