@@ -15,41 +15,87 @@
             <header class="platform-catalog-section-heading platform-verification-heading">
                 <div>
                     <h2 id="doctor-verification-heading">Doctor verification</h2>
-                    <p>Verify credentials before doctors are shown to patients.</p>
+                    <p>Review credentials and manage doctors who are visible to patients.</p>
                 </div>
-                <span class="clinic-count">{{ $unverifiedDoctors->count() }} pending</span>
             </header>
 
-            @if ($unverifiedDoctors->isEmpty())
-                <section class="card platform-verification-empty">
-                    <span class="platform-verification-check" aria-hidden="true">✓</span>
-                    <div>
-                        <h3>All caught up</h3>
-                        <p>No doctor profiles are waiting for verification.</p>
-                    </div>
-                </section>
-            @else
-                <div class="platform-doctor-list">
-                    @foreach ($unverifiedDoctors as $doctor)
-                        <article class="card platform-doctor-card">
-                            <div class="platform-doctor-identity">
-                                <span class="platform-doctor-avatar" aria-hidden="true">Dr</span>
-                                <div>
-                                    <h3>{{ $doctor->displayName() }}</h3>
-                                    <p>{{ $doctor->user->email }}</p>
+            <nav class="platform-catalog-tabs platform-doctor-tabs" aria-label="Doctor verification views">
+                <a class="platform-catalog-tab {{ $activeDoctorTab === 'pending' ? 'is-active' : '' }}"
+                    href="{{ route('platform.settings.index', ['doctor_tab' => 'pending']) }}"
+                    @if ($activeDoctorTab === 'pending') aria-current="page" @endif>
+                    Pending review <span>{{ $unverifiedDoctors->count() }}</span>
+                </a>
+                <a class="platform-catalog-tab {{ $activeDoctorTab === 'verified' ? 'is-active' : '' }}"
+                    href="{{ route('platform.settings.index', ['doctor_tab' => 'verified']) }}"
+                    @if ($activeDoctorTab === 'verified') aria-current="page" @endif>
+                    Verified doctors <span>{{ $verifiedDoctors->count() }}</span>
+                </a>
+            </nav>
+
+            @if ($activeDoctorTab === 'pending')
+                @if ($unverifiedDoctors->isEmpty())
+                    <section class="card platform-verification-empty">
+                        <span class="platform-verification-check" aria-hidden="true">✓</span>
+                        <div>
+                            <h3>All caught up</h3>
+                            <p>No doctor profiles are waiting for verification.</p>
+                        </div>
+                    </section>
+                @else
+                    <div class="platform-doctor-list">
+                        @foreach ($unverifiedDoctors as $doctor)
+                            <article class="card platform-doctor-card">
+                                <div class="platform-doctor-identity">
+                                    <span class="platform-doctor-avatar" aria-hidden="true">Dr</span>
+                                    <div>
+                                        <h3>{{ $doctor->displayName() }}</h3>
+                                        <p>{{ $doctor->user->email }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="platform-doctor-credentials">
-                                <div><span>Specialty</span><strong>{{ $doctor->specialty->name }}</strong></div>
-                                <div><span>License number</span><strong>{{ $doctor->license_number }}</strong></div>
-                            </div>
-                            <form method="POST" action="{{ route('platform.doctors.verify', $doctor) }}" onsubmit="return confirm('Mark this doctor profile as verified?')">
-                                @csrf
-                                <button type="submit">Verify doctor</button>
-                            </form>
-                        </article>
-                    @endforeach
-                </div>
+                                <div class="platform-doctor-credentials">
+                                    <div><span>Specialty</span><strong>{{ $doctor->specialty->name }}</strong></div>
+                                    <div><span>License number</span><strong>{{ $doctor->license_number }}</strong></div>
+                                </div>
+                                <form method="POST" action="{{ route('platform.doctors.verify', $doctor) }}" onsubmit="return confirm('Mark this doctor profile as verified?')">
+                                    @csrf
+                                    <button type="submit">Verify doctor</button>
+                                </form>
+                            </article>
+                        @endforeach
+                    </div>
+                @endif
+            @else
+                @if ($verifiedDoctors->isEmpty())
+                    <section class="card platform-verification-empty">
+                        <span class="platform-verification-check" aria-hidden="true">✓</span>
+                        <div>
+                            <h3>No verified doctors yet</h3>
+                            <p>Doctors will appear here after their credentials are approved.</p>
+                        </div>
+                    </section>
+                @else
+                    <div class="platform-doctor-list">
+                        @foreach ($verifiedDoctors as $doctor)
+                            <article class="card platform-doctor-card platform-doctor-card-verified">
+                                <div class="platform-doctor-identity">
+                                    <span class="platform-doctor-avatar" aria-hidden="true">Dr</span>
+                                    <div>
+                                        <h3>{{ $doctor->displayName() }}</h3>
+                                        <p>{{ $doctor->user->email }}</p>
+                                    </div>
+                                </div>
+                                <div class="platform-doctor-credentials">
+                                    <div><span>Specialty</span><strong>{{ $doctor->specialty->name }}</strong></div>
+                                    <div><span>License number</span><strong>{{ $doctor->license_number }}</strong></div>
+                                </div>
+                                <div class="platform-doctor-status">
+                                    <span class="pill">Verified</span>
+                                    <small>{{ $doctor->clinicMemberships->where('status', 'active')->count() }} active {{ $doctor->clinicMemberships->where('status', 'active')->count() === 1 ? 'clinic' : 'clinics' }}</small>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                @endif
             @endif
         </section>
 
@@ -230,7 +276,7 @@
     </div>
 
     <script>
-        const catalogTabs = Array.from(document.querySelectorAll('.platform-catalog-tab'));
+        const catalogTabs = Array.from(document.querySelectorAll('#specialties-tab, #services-tab'));
 
         function activateCatalogTab(tab) {
             catalogTabs.forEach(function (catalogTab) {

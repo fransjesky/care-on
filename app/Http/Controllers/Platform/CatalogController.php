@@ -16,13 +16,29 @@ use Illuminate\View\View;
 
 class CatalogController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $validated = $request->validate([
+            'doctor_tab' => ['nullable', Rule::in(['pending', 'verified'])],
+        ]);
+
         $specialties = Specialty::query()->withCount(['doctors', 'services'])->orderBy('name')->get();
         $services = Service::query()->with('specialty')->withCount(['clinicServices', 'appointments'])->orderBy('name')->get();
         $unverifiedDoctors = Doctor::query()->with(['user', 'specialty'])->where('is_verified', false)->latest()->get();
+        $verifiedDoctors = Doctor::query()
+            ->with(['user', 'specialty', 'clinicMemberships.clinic'])
+            ->where('is_verified', true)
+            ->latest()
+            ->get();
+        $activeDoctorTab = $validated['doctor_tab'] ?? 'pending';
 
-        return view('platform.catalog.index', compact('specialties', 'services', 'unverifiedDoctors'));
+        return view('platform.catalog.index', compact(
+            'specialties',
+            'services',
+            'unverifiedDoctors',
+            'verifiedDoctors',
+            'activeDoctorTab',
+        ));
     }
 
     public function storeSpecialty(Request $request): RedirectResponse

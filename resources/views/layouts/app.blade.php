@@ -2629,6 +2629,7 @@
             font-size: 14px;
             font-weight: 650;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .platform-catalog-tab:hover {
@@ -2882,6 +2883,21 @@
 
         .platform-verification-heading {
             margin-bottom: 15px;
+        }
+
+        .platform-doctor-tabs {
+            margin-bottom: 15px;
+        }
+
+        .platform-doctor-status {
+            display: grid;
+            justify-items: end;
+            gap: 6px;
+        }
+
+        .platform-doctor-status small {
+            color: #71849a;
+            font-size: 11px;
         }
 
         .platform-verification-heading h2 {
@@ -4273,6 +4289,10 @@
                 grid-template-columns: 1fr;
                 gap: 15px;
                 padding: 16px;
+            }
+
+            .platform-doctor-status {
+                justify-items: start;
             }
 
             .platform-doctor-card > form button {

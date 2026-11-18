@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/CareOn.png" alt="CareOn logo" width="220">
+  <img src="public/CareOn.png" alt="CareOn logo" width="460">
 </p>
 
 <h1 align="center">CareOn</h1>
@@ -152,7 +152,7 @@ To recreate the schema from scratch:
 ```bash
 php artisan config:clear
 php artisan migrate:fresh --seed
-php artisan careon:create-platform-admin admin@example.com "Platform Admin"
+php artisan careon:create-platform-admin admin@careon.com "Platform Admin"
 ```
 
 After the reset, the seeder creates the demo clinic, doctor, patient, service, specialty, invitation, and schedule records. The platform administrator is still created separately with `careon:create-platform-admin`.
@@ -190,7 +190,7 @@ For a new or disposable local demonstration database, use the complete reset wor
 ```bash
 php artisan config:clear
 php artisan migrate:fresh --seed
-php artisan careon:create-platform-admin admin@example.com "Platform Admin"
+php artisan careon:create-platform-admin admin@careon.com "Platform Admin"
 ```
 
 If the database already contains the schema and you only want to add or refresh the demonstration records, run:
