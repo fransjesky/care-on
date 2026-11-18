@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Platform administrators are created explicitly with the CareOn command.
+        $this->call(DemoDataSeeder::class);
     }
 }

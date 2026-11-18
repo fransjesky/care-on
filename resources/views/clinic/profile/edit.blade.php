@@ -47,6 +47,15 @@
                         <input id="photo_url" name="photo_url" type="url" value="{{ old('photo_url', $clinic->photo_url) }}" maxlength="2048" placeholder="https://example.com/clinic-photo.jpg">
                         <p class="patient-profile-help">Paste a direct link to an image hosted online. CareOn does not upload or store the image.</p>
                         @error('photo_url') <p class="error">{{ $message }}</p> @enderror
+                        <div style="margin-top:12px">
+                            <span class="patient-profile-help" style="display:block;margin-bottom:8px">Photo preview</span>
+                            <img id="clinic-photo-preview"
+                                src="{{ old('photo_url', $clinic->photo_url) ?: asset('hospital-placeholder.png') }}"
+                                alt="{{ $clinic->name }} photo preview"
+                                loading="lazy"
+                                referrerpolicy="no-referrer"
+                                style="display:block;width:min(100%,420px);height:220px;object-fit:cover;border:1px solid #dce8ed;border-radius:12px;background:#f4f7fb">
+                        </div>
                     </div>
 
                     <div class="clinic-profile-field clinic-profile-wide-field">
@@ -69,4 +78,17 @@
             </form>
         </section>
     </div>
+    <script>
+        const clinicPhotoInput = document.getElementById('photo_url');
+        const clinicPhotoPreview = document.getElementById('clinic-photo-preview');
+        const clinicPhotoPlaceholder = @json(asset('hospital-placeholder.png'));
+
+        clinicPhotoPreview.addEventListener('error', function () {
+            clinicPhotoPreview.src = clinicPhotoPlaceholder;
+        });
+
+        clinicPhotoInput.addEventListener('input', function () {
+            clinicPhotoPreview.src = clinicPhotoInput.value.trim() || clinicPhotoPlaceholder;
+        });
+    </script>
 @endsection

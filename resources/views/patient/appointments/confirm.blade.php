@@ -9,7 +9,7 @@
 
         <div class="stack" style="gap:8px;margin-top:22px">
             <p style="margin:0"><strong>Clinic:</strong> {{ $clinic->name }}</p>
-            <p style="margin:0"><strong>Doctor:</strong> {{ $doctor->user->name }} · {{ $doctor->specialty->name }}</p>
+            <p style="margin:0"><strong>Doctor:</strong> {{ $doctor->displayName() }} · {{ $doctor->specialty->name }}</p>
             <p style="margin:0"><strong>Date:</strong> {{ \Carbon\CarbonImmutable::parse($slot['starts_at_local'], $clinic->timezone)->format('l, F j, Y') }}</p>
             <p style="margin:0"><strong>Time:</strong> {{ \Carbon\CarbonImmutable::parse($slot['starts_at_local'], $clinic->timezone)->format('g:i A') }}–{{ \Carbon\CarbonImmutable::instance($slot['ends_at'])->setTimezone($clinic->timezone)->format('g:i A') }} ({{ $clinic->timezone }})</p>
             <p style="margin:0"><strong>Service:</strong> {{ $service?->name ?? 'No specific service' }}</p>

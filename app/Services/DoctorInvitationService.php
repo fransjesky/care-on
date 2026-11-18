@@ -95,7 +95,7 @@ class DoctorInvitationService
 
             $doctorUser = User::query()->forceCreate([
                 'role' => 'doctor',
-                'name' => $data['name'],
+                'name' => Str::of($data['name'])->trim()->replaceMatches('/^dr\.?\s+/i', '')->toString(),
                 'email' => $invitation->email,
                 'password' => $data['password'],
                 'email_verified_at' => now(),

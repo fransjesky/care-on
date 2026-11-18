@@ -35,7 +35,7 @@
                             <div class="platform-doctor-identity">
                                 <span class="platform-doctor-avatar" aria-hidden="true">Dr</span>
                                 <div>
-                                    <h3>{{ $doctor->user->name }}</h3>
+                                    <h3>{{ $doctor->displayName() }}</h3>
                                     <p>{{ $doctor->user->email }}</p>
                                 </div>
                             </div>

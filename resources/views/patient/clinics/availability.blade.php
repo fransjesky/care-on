@@ -11,7 +11,7 @@
         $clinicPhone = $clinicPhoneDigits !== '' ? rtrim(chunk_split($clinicPhoneDigits, 4, '-'), '-') : null;
     @endphp
     <section class="card">
-        <img src="{{ $clinic->photo_url ?: asset('CareOn.png') }}" alt="{{ $clinic->name }}" loading="lazy"
+        <img src="{{ $clinic->photo_url ?: asset('hospital-placeholder.png') }}" alt="{{ $clinic->name }}" loading="lazy"
             referrerpolicy="no-referrer"
             style="display:block;width:100%;max-height:500px;object-fit:cover;border-radius:12px;margin-top:16px">
         <h1 style="margin-top:12px">{{ $clinic->name }}</h1>
@@ -87,7 +87,7 @@
     @forelse ($slotsByDoctor as $slots)
         @php($doctor = $slots->first()['doctor'])
         <section class="card" style="margin-top:16px">
-            <h2>{{ $doctor->user->name }}</h2>
+            <h2>{{ $doctor->displayName() }}</h2>
             <p>{{ $doctor->specialty->name }}@if ($doctor->bio)
                     · {{ $doctor->bio }}
                 @endif

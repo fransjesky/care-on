@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="patient-appointment-details">
-                                <p><span>Doctor</span><strong>{{ $appointment->doctor->user->name }}</strong> <span
+                                <p><span>Doctor</span><strong>{{ $appointment->doctor->displayName() }}</strong> <span
                                         class="patient-appointment-specialty">·
                                         {{ $appointment->doctor->specialty->name }}</span></p>
                                 <p><span>Visit</span><strong>{{ $appointment->service?->name ?? 'General appointment' }}</strong>
@@ -114,7 +114,7 @@
                                         <td>{{ $appointment->starts_at->setTimezone($appointment->clinic->timezone)->format('M j, Y · g:i A') }}
                                         </td>
                                         <td>{{ $appointment->clinic->name }}</td>
-                                        <td>{{ $appointment->doctor->user->name }}</td>
+                                        <td>{{ $appointment->doctor->displayName() }}</td>
                                         <td>{{ $appointment->service?->name ?? 'General appointment' }}</td>
                                         <td><span class="pill appointment-status-pill appointment-status-{{ $appointment->status }}">{{ ucfirst($appointment->status) }}</span></td>
                                     </tr>

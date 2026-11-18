@@ -41,7 +41,7 @@
                                             <strong>{{ $invitation->email }}</strong>
                                             <div class="muted">
                                                 @if ($invitation->accepted_at)
-                                                    Accepted
+                                                    Verified
                                                 @elseif ($invitation->revoked_at)
                                                     Replaced by a newer invitation
                                                 @elseif ($invitation->expires_at->isPast())

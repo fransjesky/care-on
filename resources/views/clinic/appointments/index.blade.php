@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="clinic-appointment-meta">
-                                <span><strong>Doctor</strong>{{ $appointment->doctor->user->name }} · {{ $appointment->doctor->specialty->name }}</span>
+                                <span><strong>Doctor</strong>{{ $appointment->doctor->displayName() }} · {{ $appointment->doctor->specialty->name }}</span>
                                 <span><strong>Service</strong>{{ $appointment->service?->name ?? 'General appointment' }}</span>
                                 <span><strong>Patient email</strong><a href="mailto:{{ $appointment->patient->email }}">{{ $appointment->patient->email }}</a></span>
                             </div>

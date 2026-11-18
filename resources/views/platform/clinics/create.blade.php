@@ -64,6 +64,7 @@
                         </select>
                         @error('timezone') <p class="error">{{ $message }}</p> @enderror
                     </div>
+
                 </div>
 
                 <div class="platform-clinic-form-actions">

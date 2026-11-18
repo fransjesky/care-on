@@ -53,7 +53,7 @@
                                 <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20v-1.5a7 7 0 0 1 14 0V20M18 6h4M20 4v4"/></svg>
                             </span>
                             <div class="clinic-doctor-team-identity">
-                                <h3>{{ $membership->doctor->user->name }}</h3>
+                                <h3>{{ $membership->doctor->displayName() }}</h3>
                                 <a href="mailto:{{ $membership->doctor->user->email }}">{{ $membership->doctor->user->email }}</a>
                             </div>
                             <div class="clinic-doctor-team-detail">

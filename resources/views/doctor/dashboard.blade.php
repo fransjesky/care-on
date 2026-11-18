@@ -5,7 +5,7 @@
         <section class="doctor-dashboard-welcome" aria-labelledby="doctor-dashboard-title">
             <div class="doctor-dashboard-welcome-copy">
                 <span class="clinic-directory-eyebrow">Doctor workspace</span>
-                <h1 id="doctor-dashboard-title">Welcome, {{ $doctor->user->name }}</h1>
+                <h1 id="doctor-dashboard-title">Welcome, {{ $doctor->displayName() }}</h1>
                 <p>Manage your appointments and availability across your CareOn clinics.</p>
 
                 <div class="doctor-dashboard-credentials">

@@ -119,7 +119,7 @@ This creates the application tables, including user accounts, clinics, doctor me
 php artisan careon:create-platform-admin admin@example.com "Platform Admin"
 ```
 
-The command prompts for a password of at least 12 characters. The database seeder does not create a platform administrator, clinics, or catalog entries; create these through the command and the application UI.
+The command prompts for a password of at least 12 characters. The database seeder creates demo clinics, catalog entries, patients, and doctors, but it does not create a platform administrator.
 
 ### 8. Build frontend assets and start CareOn
 
@@ -128,7 +128,7 @@ npm run build
 php artisan serve
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Sign in with the platform admin account, add specialties and services in **Settings**, and create a clinic to begin the end-to-end demonstration.
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Sign in with the platform admin account and use the seeded demo data, or add additional specialties, services, and clinics through the application UI.
 
 For frontend development with live asset updates, run `npm run dev` in a second terminal while `php artisan serve` is running.
 
@@ -155,7 +155,53 @@ php artisan migrate:fresh --seed
 php artisan careon:create-platform-admin admin@example.com "Platform Admin"
 ```
 
-Then repeat the demonstration flow to create clinic, doctor, and patient accounts. `migrate:fresh --seed` does not create those accounts or sample catalog data.
+After the reset, the seeder creates the demo clinic, doctor, patient, service, specialty, invitation, and schedule records. The platform administrator is still created separately with `careon:create-platform-admin`.
+
+## Seeding the demo data
+
+The default `DatabaseSeeder` calls `DemoDataSeeder` to create a complete CareOn demonstration dataset. The seeder creates or updates:
+
+- Five specialties and eight services.
+- Nine active Indonesian hospitals and clinics across Gading Serpong, BSD, Bintaro, Jakarta, Bali, and Jayapura.
+- Clinic administrator accounts and verified clinic administrator invitations.
+- Eight patient accounts with patient profiles.
+- Six verified doctor accounts with clinic memberships.
+- Clinic service offerings and recurring doctor schedules.
+- Hospital descriptions, public contact details, and remote hospital building image URLs.
+
+All seeded accounts use the following password:
+
+```text
+password
+```
+
+Seeded patient email addresses use the `@careon.com` domain, such as `olivia.patient@careon.com`. Seeded doctor addresses use the same domain, such as `amelia.doctor@careon.com`. Clinic administrator invitation addresses follow the hospital name, such as `bethsaida@careon.com`.
+
+The seeder does not create a platform administrator. Create one separately with the platform administrator command:
+
+```bash
+php artisan careon:create-platform-admin admin@example.com "Platform Admin"
+```
+
+### Recommended seeding workflow
+
+For a new or disposable local demonstration database, use the complete reset workflow:
+
+```bash
+php artisan config:clear
+php artisan migrate:fresh --seed
+php artisan careon:create-platform-admin admin@example.com "Platform Admin"
+```
+
+If the database already contains the schema and you only want to add or refresh the demonstration records, run:
+
+```bash
+php artisan db:seed --no-interaction
+```
+
+The demo seeder is designed to be rerunnable. It reuses matching specialties, services, clinics, users, memberships, clinic services, profiles, invitations, and schedules instead of inserting duplicate demo records. It also recognizes the previous demo slugs and email addresses when updating the demo dataset. It does not delete unrelated application data, so use `migrate:fresh --seed` when a completely clean dataset is required.
+
+The seeded hospital images are loaded from remote URLs when the clinic directory or availability page is viewed. An internet connection is therefore recommended for the images to display. Clinic administrators can replace these URLs from **Clinic profile** after signing in.
 
 ## Useful commands
 

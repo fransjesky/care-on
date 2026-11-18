@@ -14,6 +14,13 @@ use Illuminate\View\View;
 
 class ClinicController extends Controller
 {
+    /** @var list<string> */
+    private const CLINIC_TIMEZONES = [
+        'Asia/Jakarta',
+        'Asia/Makassar',
+        'Asia/Jayapura',
+    ];
+
     public function index(): View
     {
         $clinics = Clinic::query()
@@ -27,7 +34,7 @@ class ClinicController extends Controller
     public function create(): View
     {
         return view('platform.clinics.create', [
-            'timezones' => timezone_identifiers_list(),
+            'timezones' => self::CLINIC_TIMEZONES,
         ]);
     }
 
@@ -38,7 +45,7 @@ class ClinicController extends Controller
             'slug' => ['required', 'string', 'alpha_dash', 'max:255', Rule::unique('clinics', 'slug')],
             'address' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'regex:/^[0-9]+$/', 'max:30'],
-            'timezone' => ['required', Rule::in(timezone_identifiers_list())],
+            'timezone' => ['required', Rule::in(self::CLINIC_TIMEZONES)],
             'admin_email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
         ]);
 
